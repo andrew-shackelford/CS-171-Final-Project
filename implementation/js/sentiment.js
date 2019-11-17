@@ -80,8 +80,6 @@ function drawSentimentVis(sentimentData, filteredData) {
             return d.polarity / d.total;
         }));
 
-    // based on https://github.com/vlandham/bubble_chart_v4/blob/master/src/bubble_chart.js
-
     var extent = d3.extent(sentimentData, function (d) {
         return d.total;
     });
