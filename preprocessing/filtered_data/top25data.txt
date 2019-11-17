@@ -1,0 +1,18 @@
+top25 nested data: 
+
+https://drive.google.com/drive/folders/1V0OIVMjT1dDcOIlltT4q4bQX88yhDqvj?usp=sharing
+
+
+Structure:
+
+[ 
+	{ ‘key’: subreddit_name, 
+		‘values’: [
+				{comment object}, 
+				{}, 
+				…, 
+				{}] 
+	}, 
+	…, 
+	{}
+]
