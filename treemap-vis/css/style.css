@@ -1,0 +1,21 @@
+body {
+    margin: 20px;
+}
+
+.treemap-ul {
+    padding-left: 25px;
+}
+
+.tooltip-div {
+    max-width: 380px;
+}
+
+.treemap-p {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.treemap-btn {
+    border-radius: 4px;
+    margin-left: 2px;
+}
