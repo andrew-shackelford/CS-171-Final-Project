@@ -2,26 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Visualizing the Front Page of the Internet</title>
+    <title>D3 Project</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Visualizing the Front Page of the Internet</h1>
+    <section class="section" id="cover">
+        <div class="container">
+            <h1 id="cover-title">Visualizing the Front Page of the Internet</h1>
+            <h2>Subtitle</h2>
+        </div>
+    </section>
 
-    <button id="play-button">Pause</button>
+    <section id="intro">
+        <div class="container">
+            <h1 id="intro-title">Introduction</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="img/dog2.jpg" alt="Yorkshire" id="dog2">
+                </div>
+            </div>
 
-    <div id="sentiment"></div>
-    
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
+            <div class="row" id="intro-row-2">
+                <div class="col-md-4">
+                    <img src="img/dog4.jpg" alt="Corgi" id="dog4">
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vis-section">
+        <div class="container" class="vis-container">
+            <h1 class="vis-title">Visualization 0</h1>
+            <h2 class="vis-subtitle">Subtitle</h2>
+            <div id="vis0">
+                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            </div>
+            <div>
+                <p class="vis-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="vis-section" id="alt-vis-0">
+        <div class="container" class="vis-container">
+            <h1 class="vis-title">Visualization 1</h1>
+            <h2 class="vis-subtitle">Subtitle</h2>
+            <div id="vis1">
+                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            </div>
+            <div>
+                <p class="vis-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="vis-section">
+        <div class="container" class="vis-container">
+            <h1 class="vis-title">Visualization 2</h1>
+            <h2 class="vis-subtitle">Subtitle</h2>
+            <div id="vis2">
+                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            </div>
+            <div>
+                <p class="vis-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="vis-section" id="alt-vis-1">
+        <div class="container" class="vis-container">
+            <h1 class="vis-title">Visualization 3</h1>
+            <h2 class="vis-subtitle">Subtitle</h2>
+            <div id="bubble-play-button">
+                <button id="play-button">Pause</button>
+            </div>
+            <div id="bubble-cloud">
+            </div>
+            <div>
+                <p class="vis-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="vis-section">
+        <div class="container" class="vis-container">
+            <h1 class="vis-title">Visualization 4</h1>
+            <h2 class="vis-subtitle">Subtitle</h2>
+            <div id="vis4">
+                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            </div>
+            <div>
+                <p class="vis-p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="footer">
+        <div class="container">
+            <h1 id="footer-title">Credits / More Information</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="vis-p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="vis-p">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-scale-chromatic.js"></script>
-    <script src="js/queue.min.js"></script>
 
-    <script src="js/main.js"></script>
     <script src="js/sentiment.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -7,6 +7,91 @@ body {
 h1 {
 }
 
+p {
+	font-size: 24px;
+}
+
+#cover {
+	background-image: url(../img/dog1.jpeg);
+	background-size: cover;
+	height: 100vh;
+	padding: 0;
+}
+
+#cover-title {
+	padding-top: 40vh;
+	font-weight: bolder;
+	font-size: 72px;
+	color: white;
+}
+
+#intro-title {
+	padding-top: 50px;
+	font-weight: bolder;
+	font-size: 64px;
+}
+
+#intro-row-2 {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+#dog2 {
+	width: 100%;
+}
+
+#dog4 {
+	width: 90%;
+}
+
+#vis-section {
+	height: 100vh;
+}
+
+#alt-vis-0 {
+	background-color: #e7e7e7;
+}
+
+#alt-vis-1 {
+	background-color: #e7e7e7;
+}
+
+.vis-title {
+	padding-top: 30px;
+	font-size: 56px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.vis-subtitle {
+	font-size: 36px;
+	text-align: center;
+}
+
+.placeholder-vis {
+	padding-top: 20px;
+	width: 75%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.vis-p {
+	padding-top: 30px;
+	padding-bottom: 100px;
+}
+
+#footer {
+	background-color: #e7e7e7;
+	margin-top: 100px;
+}
+
+#footer-title {
+	padding-top: 60px;
+	font-weight: bold;
+	font-size: 36px;
+}
+
 
 .ticks {
 	font: 10px sans-serif;
