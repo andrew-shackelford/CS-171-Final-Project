@@ -184,6 +184,7 @@ TreeMap.prototype.updateVis = function() {
         })
         .attr("stroke", "black")
         .attr("fill", "#2D76B3")
+        .attr("opacity", 0.85)
         .attr("transform", function(d) {
             if (vis.currTree == "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
@@ -202,7 +203,7 @@ TreeMap.prototype.updateVis = function() {
         d3.select(this).attr("opacity", 1);
         vis.nameTooltip.show(d);
     }).on("mouseout", function(d) {
-        rectSelection.attr("opacity", 1);
+        rectSelection.attr("opacity", 0.85);
         vis.nameTooltip.hide(d);
     });
 
@@ -230,7 +231,7 @@ TreeMap.prototype.updateVis = function() {
                 return label
             }
         })
-        .attr("font-size", "12px")
+        .attr("font-size", "11px")
         .attr("fill", "white")
         .attr("transform", function(d) {
             if (vis.currTree === "treemapSlice") {
@@ -245,7 +246,7 @@ TreeMap.prototype.updateVis = function() {
 
 
 TreeMap.prototype.displayLabel = function(height, width, label) {
-    if (height >= 20 && label.length <= width / 6) {
+    if (height >= 20 && label.length <= width / 5) {
         return true;
     } else {
         return false;
