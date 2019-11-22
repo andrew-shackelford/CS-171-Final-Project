@@ -66,6 +66,13 @@ TreeMap.prototype.initVis = function() {
 
     vis.treemapBtn = d3.select(".treemap-btn").style("visibility", "hidden");
 
+    // Tooltip to display subreddit name
+    vis.nameTooltip = d3.tip()
+        .attr("class", "d3-tip")
+        .html(function (d) {
+            return "<h6>" + d.data.key + "</h6>";
+        });
+
     vis.wrangleData()
 
 }
@@ -152,6 +159,7 @@ TreeMap.prototype.updateVis = function() {
                 vis.currTree = "treemapSlice";
             }
 
+            vis.nameTooltip.hide();
             vis.clicked(d);
             vis.createTreeLayout();
         })
@@ -184,13 +192,18 @@ TreeMap.prototype.updateVis = function() {
             }
         });
 
+    // show name tooltip on mouseover
+    vis.svg.selectAll(".subreddit-rect").call(vis.nameTooltip);
+
     // Highlight selected subreddit
     var rectSelection = vis.svg.selectAll(".subreddit-rect");
-    rectSelection.on("mouseover", function () {
+    rectSelection.on("mouseover", function (d) {
         rectSelection.attr("opacity", 0.85);
         d3.select(this).attr("opacity", 1);
-    }).on("mouseout", function() {
+        vis.nameTooltip.show(d);
+    }).on("mouseout", function(d) {
         rectSelection.attr("opacity", 1);
+        vis.nameTooltip.hide(d);
     });
 
     rects.exit().remove();
@@ -264,8 +277,6 @@ TreeMap.prototype.clicked = function(d) {
             .attr("opacity", 1)
             .text((d.data.values).toLocaleString());
 
-        console.log("hi there")
-
 
         var htmlStr = "<h5>Controversiality</h5>";
         htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.controversial).toLocaleString() + "</b> controversial comments</li>";
@@ -273,8 +284,8 @@ TreeMap.prototype.clicked = function(d) {
         vis.divCont.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", 530 + "px")
-            .style("top", 120 + "px")
+            .style("left", 510 + "px")
+            .style("top", 105 + "px")
             .attr("opacity", 1);
 
         var htmlStr = "<h5>Comments</h5>";
@@ -283,8 +294,8 @@ TreeMap.prototype.clicked = function(d) {
         vis.divComments.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", 530 + "px")
-            .style("top", 220 + "px")
+            .style("left", 510 + "px")
+            .style("top", 205 + "px")
             .attr("opacity", 1);
 
         htmlStr = "<h5>Scores</h5>";
@@ -298,8 +309,8 @@ TreeMap.prototype.clicked = function(d) {
         vis.divScore.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", 530 + "px")
-            .style("top", 320 + "px")
+            .style("left", 510 + "px")
+            .style("top", 305 + "px")
             .attr("opacity", 1);
 
         var timer = d3.timer(function(elapsed) {
