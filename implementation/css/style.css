@@ -155,6 +155,21 @@ p {
 	margin-left: 2px;
 }
 
+/*********************/
+/*    ASTER PLOT     */
+/*********************/
+
+.solidArc:hover {
+	opacity: 50%;
+}
+
+.solidArc {
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
 
 /*********************/
 /*  TOOLTIP OVERLAY  */
@@ -166,7 +181,7 @@ p {
 	font-weight: 600;
 }
 
-.d3-tip {
+.d3-tip, .d3-tip-aster {
 	line-height: 1;
 	padding-top: 12px;
 	padding-left: 12px;
@@ -176,8 +191,12 @@ p {
 	border-radius: 15px;
 }
 
+.d3-tip-aster {
+	padding-bottom: 12px;
+}
+
 /* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
+.d3-tip:after, .d3-tip-aster:after {
 	box-sizing: border-box;
 	display: inline;
 	font-size: 10px;
@@ -190,7 +209,7 @@ p {
 }
 
 /* Style northward tooltips differently */
-.d3-tip.n:after {
+.d3-tip.n:after, .d3-tip-aster.n:after {
 	margin: -1px 0 0 0;
 	top: 100%;
 	left: 0;
