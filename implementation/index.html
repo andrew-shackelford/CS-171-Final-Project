@@ -119,8 +119,14 @@
         <div class="container" class="vis-container">
             <h1 class="vis-title">Visualization 4</h1>
             <h2 class="vis-subtitle">Subtitle</h2>
-            <div id="vis4">
-                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            <div>
+                <select id="aster-type" onchange="updatePlotType()">
+                    <option value="comments"># of comments</option>
+                    <option value="controversiality">Average Controversiality</option>
+                    <option value="score">Average Score</option>
+                </select>
+            </div>
+            <div id="asterplot">
             </div>
             <div>
                 <p class="vis-p">
@@ -149,15 +155,20 @@
     </section>
 
 
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-scale-chromatic.js"></script>
     <script src="js/d3-tip.js"></script>
+    <script src="js/d3-color.v1.min.js"></script>
+    <script src="js/d3-interpolate.v1.min.js"></script>
+    <script src="js/colorbrewer.js"></script>
+    <script src="js/lodash.min.js"></script>
 
     <script src="js/sentiment.js"></script>
     <script src="js/treemap.js"></script>
+    <script src="js/asterplot.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
