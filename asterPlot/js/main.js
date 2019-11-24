@@ -9,7 +9,8 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function(d, i) {
-        return i + 1 + ":00" + ": <span>" + d.data.total + " comments" + "</span>" +
+        return "<span style='color:#72ffff'>" + (i + 1) + ":00 </span>" +
+            "<br>" + (d.data.total).toLocaleString() + " comments" +
             "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
             "<br>" + "Avg. score: " + d.data.score.toFixed(2);
     });
