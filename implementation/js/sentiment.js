@@ -35,7 +35,6 @@ SentimentBubbleCloud.prototype.initVis = function(){
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
 
-    vis.intervalId = setInterval(function(){vis.step();}, 2000);
     vis.hour = -1;
 
     vis.parser = d3.timeParse("%H");
