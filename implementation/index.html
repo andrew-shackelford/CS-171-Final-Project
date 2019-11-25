@@ -67,8 +67,39 @@
         <div class="container" class="vis-container">
             <h1 class="vis-title">Visualization 1</h1>
             <h2 class="vis-subtitle">Subtitle</h2>
-            <div id="vis1">
-                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="ranking-type">Select subreddit</label>
+                    <select id="select-box" onchange = "updateWordCloud(value)" class="form-control" id="ranking-type">
+                        <option value="leagueoflegends">leagueoflegends</option>
+                        <option value="teenagers">teenagers</option>
+                        <option value="pics">pics</option>
+                        <option value="mildlyinteresting">mildlyinteresting</option>
+                        <option value="LiverpoolFC">LiverpoolFC</option>
+                        <option value="SquaredCircle">SquaredCircle</option>
+                        <option value="The_Donald">The_Donald</option>
+                        <option value="news">news</option>
+                        <option value="freefolk">freefolk</option>
+                        <option value="aww">aww</option>
+                        <option value="soccer">soccer</option>
+                        <option value="AskOuija">AskOuija</option>
+                        <option value="Market76">Market76</option>
+                        <option value="funny">funny</option>
+                        <option value="unpopularopinion">unpopularopinion</option>
+                        <option value="dankmemes">dankmemes</option>
+                        <option value="AskReddit">AskReddit</option>
+                        <option value="AmItheAsshole">AmItheAsshole</option>
+                        <option value="nba">nba</option>
+                        <option value="gaming">gaming</option>
+                        <option value="Showerthoughts">Showerthoughts</option>
+                        <option value="politics">politics</option>
+                        <option value="memes">memes</option>
+                        <option value="worldnews">worldnews</option>
+                        <option value="gonewild">gonewild</option>
+                    </select>
+                </div>
+            </form>
+            <div id="wordcloud">
             </div>
             <div>
                 <p class="vis-p">
@@ -163,12 +194,14 @@
     <script src="js/d3-tip.js"></script>
     <script src="js/d3-color.v1.min.js"></script>
     <script src="js/d3-interpolate.v1.min.js"></script>
+    <script src="js/d3.layout.cloud.js"></script>
     <script src="js/colorbrewer.js"></script>
     <script src="js/lodash.min.js"></script>
 
     <script src="js/sentiment.js"></script>
     <script src="js/treemap.js"></script>
     <script src="js/asterplot.js"></script>
+    <script src="js/wordcloud.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

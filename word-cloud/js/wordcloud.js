@@ -33,19 +33,22 @@ function updateVis(key){
 
     function draw(words) {
         console.time("drawing...");
-        var cloud = svg.selectAll("text").data(words);
+        var cloud = svg.selectAll("text")
+            .data(words, function(d) {
+                return d.key;
+            });
         cloud.exit().remove();
         cloud.enter().append("text")
             .merge(cloud)
-            .transition()
-            .duration(700)
-            .style("font-size", function(d) { return xScale(d.value) + "px"; })
-            .style("fill", function(d, i) { return fill(i); })
             .attr("text-anchor", "middle")
             .attr("transform", function(d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
             })
-            .text(function(d) { return d.key; });
+            .text(function(d) { return d.key; })
+            .style("font-size", function(d) { return xScale(d.value) + "px"; })
+            .transition()
+            .duration(5000)
+            .style("fill", function(d, i) { return fill(i); })
         console.timeEnd("drawing...");
     }
     console.time("stopping...");
