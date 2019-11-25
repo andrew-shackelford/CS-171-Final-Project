@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f65cc91-cd40-4e0e-92fd-e39d17af4162" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../implementation/data/hourly_stats.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../implementation/js/asterplot.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../implementation/js/colorbrewer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../implementation/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../implementation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/js/main.js" afterDir="false" />
-    </list>
+    <list default="true" id="8f65cc91-cd40-4e0e-92fd-e39d17af4162" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
