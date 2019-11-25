@@ -19,7 +19,7 @@ AsterPlot.prototype.initVis = function() {
         .attr('class', 'd3-tip-padding')
         .offset([0, 0])
         .html(function(d, i) {
-            return "<span style='color:#72ffff'>" + (i + 1) + ":00 </span>" +
+            return "<span style='color:#72ffff'>" + i + ":00 </span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
                 "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
                 "<br>" + "Avg. score: " + d.data.score.toFixed(2);
