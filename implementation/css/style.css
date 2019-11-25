@@ -169,7 +169,7 @@ p {
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
-
+<<<<<<< 
 #aster-table {
 	margin-top: 80px;
 }
@@ -182,7 +182,6 @@ td {
 	white-space: nowrap;
 }
 
-
 /*********************/
 /*  TOOLTIP OVERLAY  */
 /*********************/
@@ -193,7 +192,8 @@ td {
 	font-weight: 600;
 }
 
-.d3-tip, .d3-tip-aster {
+
+.d3-tip, .d3-tip-padding {
 	line-height: 1;
 	padding-top: 12px;
 	padding-left: 12px;
@@ -203,12 +203,13 @@ td {
 	border-radius: 15px;
 }
 
-.d3-tip-aster {
+
+.d3-tip-padding {
 	padding-bottom: 12px;
 }
 
 /* Creates a small triangle extender for the tooltip */
-.d3-tip:after, .d3-tip-aster:after {
+.d3-tip:after, .d3-tip-padding:after {
 	box-sizing: border-box;
 	display: inline;
 	font-size: 10px;
@@ -221,7 +222,7 @@ td {
 }
 
 /* Style northward tooltips differently */
-.d3-tip.n:after, .d3-tip-aster.n:after {
+.d3-tip.n:after, .d3-tip-padding.n:after {
 	margin: -1px 0 0 0;
 	top: 100%;
 	left: 0;

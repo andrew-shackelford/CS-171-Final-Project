@@ -35,7 +35,6 @@ SentimentBubbleCloud.prototype.initVis = function(){
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom);
 
-    vis.intervalId = setInterval(function(){vis.step();}, 2000);
     vis.hour = -1;
 
     vis.parser = d3.timeParse("%H");
@@ -79,6 +78,113 @@ SentimentBubbleCloud.prototype.initVis = function(){
     vis.handle = slider.insert("circle", ".track-overlay")
         .attr("class", "handle")
         .attr("r", 9);
+    
+    vis.extent = d3.extent(vis.data, function (d) {
+        return d.total;
+    });
+
+    vis.radiusScale = d3.scaleLog()
+        .range([35, 75])
+        .domain(vis.extent);
+    vis.colorScale = d3.scaleLog()
+        .range([0, 0.8])
+        .domain(vis.extent);
+    vis.polarityScale = d3.scaleLinear()
+        .range([300, vis.width-150])
+        .domain(d3.extent(vis.data, function(d) {
+            return d.polarity / d.total;
+        }));
+
+    // create legend
+    var legend_array = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8].map(function (d) {
+        return vis.colorScale.invert(d);
+    });
+    console.log(legend_array);
+    var legend_rects = vis.svg.selectAll(".legend-rect")
+        .data(legend_array);
+
+    legend_rects.enter()
+        .append("rect")
+        .merge(legend_rects)
+        .attr("fill", function(d) { return (d3.interpolateBlues(vis.colorScale(d))); } )
+        .attr("x", function(d, i) { return (i+1) * 25 + 740} )
+        .attr("y", "50" )
+        .attr("width", "25")
+        .attr("height", "25")
+        .attr("stroke", "black")
+        .attr("class", "legend-rect");
+
+    // create legend labels
+    var legend_labels = vis.svg.selectAll(".legend-label")
+        .data(legend_array);
+    legend_labels.enter()
+        .append("text")
+        .merge(legend_labels)
+        .attr("x", function(d, i) { return (i+1) * 25 + 740 + 12.5} )
+        .attr("y", "93")
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "top")
+        .attr("class", "legend-label")
+        .text(function(d, i) {
+            if (i % 2 == 0) {
+                return Math.round(d);
+            }});
+
+    vis.svg.append("text")
+        .attr("x", 740 + 12.5 + 5 * 25)
+        .attr("y", "110")
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "top")
+        .attr("class", "legend-unit")
+        .style("font-style", "oblique")
+        .text("comments per hour");
+
+    var arrowX = 75;
+    var arrowY = 650;
+    var arrowWidth = 875;
+    var arrowHeight = 3;
+    var triangleSize = 10;
+
+    vis.svg.append("path")
+        .attr("id", "sentiment-arrow")
+        .attr("fill", "black")
+        .attr("d", "M " + (arrowX - triangleSize) + " " + arrowY +
+                          " L " + arrowX + " " + (arrowY - triangleSize) +
+                          " L " + arrowX + " " + (arrowY - arrowHeight) +
+                          " L " + (arrowX + arrowWidth) + " " + (arrowY - arrowHeight) +
+                          " L " + (arrowX + arrowWidth) + " " + (arrowY - triangleSize) +
+                          " L " + (arrowX + arrowWidth + triangleSize) + " " + arrowY +
+                          " L " + (arrowX + arrowWidth) + " " + (arrowY + triangleSize) +
+                          " L " + (arrowX + arrowWidth) + " " + (arrowY + arrowHeight) +
+                          " L " + arrowX + " " + (arrowY + arrowHeight) +
+                          " L " + arrowX + " " + (arrowY + triangleSize) +
+                          " Z");
+
+    vis.svg.append("text")
+        .attr("class", "sentiment-arrow-label")
+        .attr("x", arrowX)
+        .attr("y", arrowY + 30)
+        .attr("text-anchor", "begin")
+        .attr("alignment-baseline", "top")
+        .style("font-style", "oblique")
+        .text("More Negative");
+
+    vis.svg.append("text")
+        .attr("class", "sentiment-arrow-label")
+        .attr("x", arrowX + arrowWidth)
+        .attr("y", arrowY + 30)
+        .attr("text-anchor", "end")
+        .attr("alignment-baseline", "top")
+        .style("font-style", "oblique")
+        .text("More Positive");
+
+    vis.tip = d3.tip()
+        .attr("class", "d3-tip-padding")
+        .offset([0, 0])
+        .html(function(d) {return "<b>" + d.id + "</b>" + "<br>" +
+                                      "Comments per hour: " + d.value + "<br>" +
+                                      "Average polarity of comment: " + Math.round((d.polarity / d.value) * 1000) / 1000});
+    vis.svg.call(vis.tip);
 
     vis.step();
 }
@@ -124,10 +230,6 @@ SentimentBubbleCloud.prototype.drawSentimentVis = function() {
 
     // based on https://github.com/vlandham/bubble_chart_v4/blob/master/src/bubble_chart.js
 
-    var extent = d3.extent(vis.data, function (d) {
-        return d.total;
-    });
-
     var center = {x: vis.width / 2, y: vis.height / 2};
     var forceStrength = 0.03;
 
@@ -139,22 +241,10 @@ SentimentBubbleCloud.prototype.drawSentimentVis = function() {
         .on('tick', ticked);
     simulation.stop();
 
-    var radiusScale = d3.scaleLog()
-        .range([35, 75])
-        .domain(extent);
-    var colorScale = d3.scaleLog()
-        .range([0, 0.8])
-        .domain(extent);
-    var polarityScale = d3.scaleLinear()
-        .range([300, vis.width-150])
-        .domain(d3.extent(vis.data, function(d) {
-            return d.polarity / d.total;
-        }));
-
     var nodes = vis.displayData.map(function (d) {
         return {
             id: d.subreddit,
-            radius: radiusScale(d.total),
+            radius: vis.radiusScale(d.total),
             value: d.total,
             name: d.subreddit,
             polarity: d.polarity,
@@ -169,6 +259,8 @@ SentimentBubbleCloud.prototype.drawSentimentVis = function() {
 
     var bubblesE = bubbles.enter()
         .append("g")
+        .on('mouseover', vis.tip.show)
+        .on('mouseout', vis.tip.hide)
         .attr("class", "bubble");
     bubblesE.append('circle')
         .classed('bubble-circle', true)
@@ -188,7 +280,7 @@ SentimentBubbleCloud.prototype.drawSentimentVis = function() {
         .duration(2000)
         .attr('r', function (d) { return d.radius; })
         .attr('fill', function (d) {
-            return d3.interpolateBlues(colorScale(d.value));
+            return d3.interpolateBlues(vis.colorScale(d.value));
         });
     bubbles.selectAll("text")
         .transition()
@@ -200,7 +292,7 @@ SentimentBubbleCloud.prototype.drawSentimentVis = function() {
     simulation.alpha(1).restart();
 
     function nodePosition(d) {
-        return polarityScale(d.polarity / d.value);
+        return vis.polarityScale(d.polarity / d.value);
     }
 
     function charge(d) {

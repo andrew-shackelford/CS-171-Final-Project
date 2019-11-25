@@ -3,6 +3,7 @@
 var sentimentBubbleCloud;
 var treeMap;
 var asterPlot;
+var wordCloud;
 
 d3.json("data/sentiment.json", function(error, jsonData) {
     if (!error) {
@@ -20,7 +21,13 @@ d3.json("data/hourly_stats.json", function(error, jsonData) {
     if (!error) {
         asterPlot = new AsterPlot("#asterplot", jsonData);
     }
-})
+});
+
+d3.json("data/word_counts.json", function(error, jsonData) {
+    if (!error) {
+        wordCloud = new WordCloud("#wordcloud", jsonData);
+    }
+});
 
 function toTreemap() {
     treeMap.toTreemap();
@@ -28,4 +35,9 @@ function toTreemap() {
 
 function updatePlotType() {
     asterPlot.updatePlotType();
+
+}
+
+function updateWordCloud(value) {
+    wordCloud.updateVis(value);
 }
