@@ -95,7 +95,6 @@ AsterPlot.prototype.updatePlotType = function() {
     vis.svg.selectAll('.solidArc')
         .data([])
         .exit().remove();
-
     vis.svg.selectAll('.center-text')
         .text("")
         .exit().remove();
