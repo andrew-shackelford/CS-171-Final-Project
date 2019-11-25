@@ -16,7 +16,7 @@ AsterPlot.prototype.initVis = function() {
     vis.innerRadius = 0.3 * vis.radius;
 
     vis.tip = d3.tip()
-        .attr('class', 'd3-tip-aster')
+        .attr('class', 'd3-tip-padding')
         .offset([0, 0])
         .html(function(d, i) {
             return "<span style='color:#72ffff'>" + (i + 1) + ":00 </span>" +
