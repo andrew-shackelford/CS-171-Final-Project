@@ -16,7 +16,7 @@ AsterPlot.prototype.initVis = function() {
     vis.innerRadius = 0.3 * vis.radius;
 
     vis.tip = d3.tip()
-        .attr('class', 'd3-tip')
+        .attr('class', 'd3-tip-aster')
         .offset([0, 0])
         .html(function(d, i) {
             return "<span style='color:#72ffff'>" + (i + 1) + ":00 </span>" +
@@ -76,7 +76,6 @@ AsterPlot.prototype.initVis = function() {
 }
 
 AsterPlot.prototype.updatePlotType = function() {
-    console.log("here")
     var vis = this;
 
     var asterType = d3.select("#aster-type").node().value;
@@ -96,7 +95,6 @@ AsterPlot.prototype.updatePlotType = function() {
     vis.svg.selectAll('.solidArc')
         .data([])
         .exit().remove();
-
     vis.svg.selectAll('.center-text')
         .text("")
         .exit().remove();
