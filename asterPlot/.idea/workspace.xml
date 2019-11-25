@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f65cc91-cd40-4e0e-92fd-e39d17af4162" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../implementation/js/asterplot.js" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/js/asterplot.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../implementation/data/hourly_stats.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../implementation/js/asterplot.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../implementation/js/colorbrewer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../implementation/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../implementation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../implementation/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../implementation/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +71,7 @@
       <workItem from="1527801431154" duration="501000" />
       <workItem from="1574374192292" duration="9716000" />
       <workItem from="1574563230994" duration="2683000" />
-      <workItem from="1574622664860" duration="1679000" />
-      <workItem from="1574643004014" duration="726000" />
+      <workItem from="1574622664860" duration="1571000" />
     </task>
     <servers />
   </component>
