@@ -13,13 +13,13 @@ AsterPlot.prototype.initVis = function() {
     vis.width = 600;
     vis.height = 600;
     vis.radius = Math.min(vis.width, vis.height) / 2 - 50;
-    vis.innerRadius = 0.3 * vis.radius;
+    vis.innerRadius = 0;//0.3 * vis.radius;
 
     vis.tip = d3.tip()
         .attr('class', 'd3-tip-padding')
         .offset([0, 0])
         .html(function(d, i) {
-            return "<span style='color:#72ffff'>" + (i + 1) + ":00 </span>" +
+            return "<span style='color:#72ffff'>" + i + ":00 </span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
                 "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
                 "<br>" + "Avg. score: " + d.data.score.toFixed(2);
@@ -143,6 +143,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
 
+    /*
     var centerText = vis.svg.append("svg:text")
         .attr("class", "center-text")
         .attr("dy", ".35em")
@@ -157,7 +158,7 @@ AsterPlot.prototype.updatePlotType = function() {
             if (asterType === "score") {
                 return "Avg. Score";
             }
-        });
+        });*/
 }
 
 function tableCreate(d){
