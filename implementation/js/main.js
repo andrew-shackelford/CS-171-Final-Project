@@ -25,10 +25,7 @@ d3.json("data/hourly_stats.json", function(error, jsonData) {
 
 d3.json("data/word_counts.json", function(error, jsonData) {
     if (!error) {
-        console.log("success")
         wordCloud = new WordCloud("#wordcloud", jsonData);
-    } else {
-        console.log("rip")
     }
 });
 
@@ -38,6 +35,7 @@ function toTreemap() {
 
 function updatePlotType() {
     asterPlot.updatePlotType();
+
 }
 
 function updateWordCloud(value) {

@@ -169,7 +169,18 @@ p {
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
+<<<<<<< 
+#aster-table {
+	margin-top: 80px;
+}
 
+#aster-type {
+	margin-top: 30px;
+}
+
+td {
+	white-space: nowrap;
+}
 
 /*********************/
 /*  TOOLTIP OVERLAY  */
@@ -181,6 +192,7 @@ p {
 	font-weight: 600;
 }
 
+
 .d3-tip, .d3-tip-padding {
 	line-height: 1;
 	padding-top: 12px;
@@ -190,6 +202,7 @@ p {
 	color: #fff;
 	border-radius: 15px;
 }
+
 
 .d3-tip-padding {
 	padding-bottom: 12px;
