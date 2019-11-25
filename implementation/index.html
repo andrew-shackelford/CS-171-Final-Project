@@ -117,16 +117,31 @@
 
     <section class="vis-section">
         <div class="container" class="vis-container">
-            <h1 class="vis-title">Visualization 4</h1>
-            <h2 class="vis-subtitle">Subtitle</h2>
-            <div id="vis4">
-                <img src="img/dog3.jpg" alt="Pug" class="placeholder-vis">
-            </div>
+            <h1 class="vis-title">Top 25 Subreddit Hourly Activity</h1>
+            <h3 class="vis-subtitle">Use the dropdown to change the data displayed!</h3>
             <div>
-                <p class="vis-p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                </p>
+                <select id="aster-type" onchange="updatePlotType()">
+                    <option value="comments"># of comments</option>
+                    <option value="controversiality">Average Controversiality</option>
+                    <option value="score">Average Score</option>
+                </select>
             </div>
+            <div class="row">
+                <div class="col-md-7" id="asterplot"></div>
+                <div class="col-md-4" id="aster-table"></div>
+            </div>
+                <div>
+                    <p>
+                        Each leaf of this aster plot represents one hour in June 1st, 2019 (in UTC). Depending on which category you have selected in the select box, you can see how the number, controversiality ratings, and scores of comments fluctuate over one day. The lightest shade of blue is the first hour of the day, and the darkest is the last.
+                    </p>
+                    <p>
+                        <span style="font-weight: bold">Score: </span>The score of a comment is calculated by the following equation: # of upvotes – # of downvotes. The higher the score, the more well-received the comment is in the subreddit.
+                    </p>
+                    <p>
+                        <span style="font-weight: bold">Controversiality: </span> The controversiality score of a comment is either a 1 or a 0, and it is given to a comment via an algorithm that is not released to the public.
+                    </p>
+                </div>
+
         </div>
     </section>
 
@@ -149,15 +164,20 @@
     </section>
 
 
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-scale-chromatic.js"></script>
     <script src="js/d3-tip.js"></script>
+    <script src="js/d3-color.v1.min.js"></script>
+    <script src="js/d3-interpolate.v1.min.js"></script>
+    <script src="js/colorbrewer.js"></script>
+    <script src="js/lodash.min.js"></script>
 
     <script src="js/sentiment.js"></script>
     <script src="js/treemap.js"></script>
+    <script src="js/asterplot.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
