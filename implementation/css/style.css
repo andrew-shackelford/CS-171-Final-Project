@@ -162,6 +162,17 @@ p {
 .treemap-btn {
 	border-radius: 4px;
 	margin-left: 2px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.treemap-radio-btn {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#treemap {
+	cursor: pointer;
 }
 
 /*********************/
