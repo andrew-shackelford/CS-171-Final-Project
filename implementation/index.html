@@ -5,6 +5,7 @@
     <title>D3 Project</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -109,6 +110,35 @@
                 <button class="treemap-btn btn" type="button" onclick="toTreemap()">
                     <i class="fa fa-arrow-left"></i>
                 </button>
+
+                <div class="pretty p-round p-fill p-jelly">
+                    <input type="radio" value="avg-score" name="icon_solid" checked="checked" onclick="updateTreemapColor(this)">
+                    <div class="state p-primary">
+                        <label>Average score</label>
+                    </div>
+                </div>
+
+                <div class="pretty p-round p-fill p-jelly">
+                    <input type="radio" value="top-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <div class="state p-primary">
+                        <label>Top score</label>
+                    </div>
+                </div>
+
+                <div class="pretty p-round p-fill p-jelly">
+                    <input type="radio" value="low-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <div class="state p-primary">
+                        <label>Low score</label>
+                    </div>
+                </div>
+
+                <div class="pretty p-round p-fill p-jelly">
+                    <input type="radio" value="controversiality" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <div class="state p-primary">
+                        <label>Controversiality</label>
+                    </div>
+                </div>
+
                 <div id="treemap"></div>
             </div>
             <p class="vis-p">

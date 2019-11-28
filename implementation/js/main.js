@@ -33,6 +33,10 @@ function toTreemap() {
     treeMap.toTreemap();
 }
 
+function updateTreemapColor(btn) {
+    treeMap.updateTreemapColor(btn);
+}
+
 function updatePlotType() {
     asterPlot.updatePlotType();
 

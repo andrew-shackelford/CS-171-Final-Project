@@ -73,6 +73,29 @@ TreeMap.prototype.initVis = function() {
             return "<h6>" + d.data.key + "</h6>";
         });
 
+    // Fill for rect
+    vis.colorValue = "avg-score";
+
+    vis.extentAvgScore = d3.extent(vis.data, function (d) {
+        return d.avg_score;
+    });
+
+    vis.extentTopScore = d3.extent(vis.data, function (d) {
+        return d.top_score;
+    });
+
+    vis.extentLowScore = d3.extent(vis.data, function (d) {
+        return d.low_score;
+    });
+
+    vis.extentCont = d3.extent(vis.data, function (d) {
+        return d.percent_cont;
+    });
+
+    vis.colorScale = d3.scaleLinear()
+        .range([0.1, 0.9])
+        .domain(vis.extentAvgScore);
+
     vis.wrangleData()
 
 }
@@ -183,7 +206,21 @@ TreeMap.prototype.updateVis = function() {
             return d.y1 - d.y0;
         })
         .attr("stroke", "black")
-        .attr("fill", "#2D76B3")
+        .attr("fill", function (d) {
+            if (vis.colorValue === "avg-score") {
+                vis.colorScale.domain(vis.extentAvgScore);
+                return d3.interpolateBlues(vis.colorScale(d.data.avg_score))
+            } else if (vis.colorValue === "top-score") {
+                vis.colorScale.domain(vis.extentTopScore);
+                return d3.interpolateBlues(vis.colorScale(d.data.top_score))
+            } else if (vis.colorValue === "low-score") {
+                vis.colorScale.domain(vis.extentLowScore);
+                return d3.interpolateBlues(0.9 - vis.colorScale(d.data.low_score))
+            } else {
+                vis.colorScale.domain(vis.extentCont);
+                return d3.interpolateRdBu(0.9 - vis.colorScale(d.data.percent_cont))
+            }
+        })
         .attr("opacity", 0.85)
         .attr("transform", function(d) {
             if (vis.currTree == "treemapSlice") {
@@ -257,7 +294,7 @@ TreeMap.prototype.displayLabel = function(height, width, label) {
 TreeMap.prototype.clicked = function(d) {
     var vis = this;
     // console.log(d.data.key + " was clicked")
-    console.log(d);
+    // console.log(d);
 
     // Update tooltip if needed
     if (vis.currTree === "treemapSlice") {
@@ -322,8 +359,8 @@ TreeMap.prototype.clicked = function(d) {
             timer.stop();
         }, 400)
 
-        console.log("hello")
-        console.log(htmlStr);
+        // console.log("hello")
+        // console.log(htmlStr);
 
     } else {
         d3.select("#tooltip").select("rect")
@@ -354,5 +391,13 @@ TreeMap.prototype.toTreemap = function () {
 
     vis.currTree = "treemapSquarify";
     vis.clicked(null);
+}
+
+// Change the color of the treemap tiles based on score or controversiality
+TreeMap.prototype.updateTreemapColor = function (btn) {
+    var vis = this;
+
+    vis.colorValue = btn.value;
+    vis.updateVis();
 }
 
