@@ -41,3 +41,7 @@ function updatePlotType() {
 function updateWordCloud(value) {
     wordCloud.updateVis(value);
 }
+
+$(document).ready(function() {
+    $('#pagepiling').pagepiling();
+});
