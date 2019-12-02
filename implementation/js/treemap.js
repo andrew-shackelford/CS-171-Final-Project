@@ -10,8 +10,8 @@ TreeMap.prototype.initVis = function() {
     var vis = this;
 
     vis.margin = {top: 10, right: 10, bottom: 10, left: 100}
-    vis.width = 900 - vis.margin.left - vis.margin.right;
-    vis.height = 700 - vis.margin.top - vis.margin.bottom;
+    vis.width = 1000 - vis.margin.left - vis.margin.right;
+    vis.height = 600 - vis.margin.top - vis.margin.bottom;
 
     // Append divs for tooltip
     vis.divComments = d3.select(".treemap-container").append("div")
@@ -174,7 +174,7 @@ TreeMap.prototype.updateVis = function() {
         })
         .attr('width', function (d) {
             if (vis.currTree === "treemapSlice") {
-                return d.x1 - d.x0 - 300;
+                return d.x1 - d.x0 - 400;
             } else {
                 return d.x1 - d.x0;
             }
