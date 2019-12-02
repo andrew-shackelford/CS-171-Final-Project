@@ -52,7 +52,7 @@ AsterPlot.prototype.initVis = function() {
     });
 
     (Object.values(grouped)).forEach(function(hour) {
-        hour.sort(compareTotal)
+        hour.sort(vis.compareTotal)
     });
 
     console.log(grouped)
@@ -88,11 +88,13 @@ AsterPlot.prototype.initVis = function() {
         });
     });
 
-    vis.byHour.sort(compareHour);
+    vis.byHour.sort(vis.compareHour);
 
     console.log(vis.byHour)
 
     vis.updatePlotType();
+
+    d3.select("#asterplot-pie-0").dispatch('click');
 }
 
 AsterPlot.prototype.updatePlotType = function() {
@@ -128,11 +130,14 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("class", "solidArc")
         .attr("stroke", "black")
         .attr("d", vis.arc)
+        .attr("id", function(d) {
+            return "asterplot-pie-" + d.data["hour"];
+        })
         .on('mouseover', vis.tip.show)
         .on('mouseout', vis.tip.hide)
         .on("click", function(d){
             console.log(d);
-            tableCreate(d)
+            vis.tableCreate(d)
         });
 
     var outerPath = vis.svg.selectAll(".outlineArc")
@@ -161,7 +166,7 @@ AsterPlot.prototype.updatePlotType = function() {
         });*/
 }
 
-function tableCreate(d){
+AsterPlot.prototype.tableCreate = function(d){
     var tableHolder =  document.getElementById("aster-table");
     tableHolder.innerHTML = "";
     var tbl  = document.createElement('table');
@@ -170,7 +175,7 @@ function tableCreate(d){
     // tbl.style.border = '1px solid black';
 
     var tableTitle = document.createElement('h3');
-    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["hour"] + 1) + ":00"))
+    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["hour"]) + ":00"))
 
     var thr = tbl.insertRow();
 
@@ -194,7 +199,7 @@ function tableCreate(d){
 }
 
 //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
-function compareTotal(a, b, cat) {
+AsterPlot.prototype.compareTotal = function(a, b, cat) {
     var totalA = a.total;
     var totalB = b.total;
 
@@ -207,7 +212,7 @@ function compareTotal(a, b, cat) {
     return comparison;
 }
 
-function compareHour(a, b) {
+AsterPlot.prototype.compareHour = function(a, b) {
     var totalA = a.hour;
     var totalB = b.hour;
 

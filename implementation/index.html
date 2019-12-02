@@ -18,7 +18,7 @@
             <h4 class="cover-subtext">Hanna Kim, Jennifer Lee, Sarah Lucioni, and Andrew Shackelford</h4>
         </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="intro-title">The front page of the Internet</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="intro-title">A 24 hour snapshot</h1>
             <div class="row" id="intro-row-2">
                 <div class="col-md-4">
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="intro-title">Breaking down a comment</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -72,14 +72,17 @@
             </div>
         </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="vis-title">24 hour fluctuation</h1>
 <!--            <h2 class="vis-subtitle"></h2>-->
             <p>The amount of comments peak around 6 am EST while the score peaks around 11 pm EST. The charts below are in UTC time. To convert to EST, subtract 8 hours.</h2>
             <p>Each leaf of this aster plot represents one hour on June 1st, 2019. Depending on which category you have select, you can see how the number of comments, the average controversiality ratings, and the average scores of comments fluctuate over one day.</p>
             <p>The lightest shade of blue is the first hour of the day, and the darkest is the last.</p>
+            <p class="vis-p">
+                The amount of comments peaks around the late afternoon in the United States. This trend suggests that a lot of Reddit users are active toward the end of the workday. Interestingly, we see that the highest score peaks more towards the early morning in the United States. Unlike the number of comments and the average score, the controversiality score does not fluctuate very much throughout the day.
+            </p>
             </div>
-        <div class="section">
+        <div class="section section-inset">
             <div>
                 <select id="aster-type" onchange="updatePlotType()">
                     <option value="comments"># of comments</option>
@@ -93,21 +96,19 @@
                 <div class="col-md-4" id="aster-table"></div>
             </div>
         </div>
-        <div class="section">
-            <p class="vis-p">
-                The amount of comments peaks around the late afternoon in the United States. This trend suggests that a lot of Reddit users are active toward the end of the workday. Interestingly, we see that the highest score peaks more towards the early morning in the United States. Unlike the number of comments and the average score, the controversiality score does not fluctuate very much throughout the day.
-            </p>
-        </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="vis-title">The top subreddits</h1>
             <h2>What is a subreddit?</h2>
             <p>
                 To create order on Reddit, posts are organized by subject. Each subreddit denotes a user-created subject. To access a subreddit, one can go to r/subredditName to view the organized board of posts. Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit. Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.
             </p>
             <h2 class="vis-subtitle">What are the most active subreddits in a 24 hour snapshot?</h2>
+            <p class="vis-p">
+                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.
+            </p>
         </div>
-        <div class="section">
+        <div class="section section-inset">
             <div class="treemap-container"></div>
             <div class="treemap-vis">
                 <button class="treemap-btn btn" type="button" onclick="toTreemap()">
@@ -116,39 +117,30 @@
                 <div id="treemap"></div>
             </div>
         </div>
-        <div class="section">
-            <p class="vis-p">
-                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.
-            </p>
-        </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="vis-title">The sentiment of top subreddits</h1>
             <h2 class="vis-subtitle">Advance through a day to view how the sentiment of each subreddit changes.</h2>
+            <p class="vis-p">
+                As time reaches midday UTC (very early morning in the United States), the sentiment of the subreddits appears to become more negative. This occurs simultaneously with the peak amount of comments as displayed above. Since there are more comments, it makes sense that the sentiment might change because there is a greater total volume of comments being made.
+            </p>
         </div>
-        <div class="section">
+        <div class="section section-inset">
             <div id="bubble-play-button">
                 <button id="play-button">Play</button>
             </div>
             <div id="bubble-cloud">
             </div>
         </div>
-        <div class="section">
-            <div>
-                <p class="vis-p">
-                    As time reaches midday UTC (very early morning in the United States), the sentiment of the subreddits appears to become more negative. This occurs simultaneously with the peak amount of comments as displayed above. Since there are more comments, it makes sense that the sentiment might change because there is a greater total volume of comments being made.
-                </p>
-            </div>
-        </div>
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 class="vis-title">Impactful words</h1>
             <h2 class="vis-subtitle">What are the most common words in each subreddit?</h2>
             <p>
                 To find the most impactful and common words per subreddit, we first filtered out common English stop words such as "a" and "the".
             </p>
         </div>
-        <div class="section">
+        <div class="section section-inset">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="ranking-type" id="word-cloud-label">Select subreddit</label>
@@ -184,14 +176,14 @@
             <div id="wordcloud">
             </div>
         </div>
-        <div class="section">
+        <div class="section section-inset">
             <p class="vis-p">
                 By looking at a snapshot of words from each subreddit, the general feeling of the community can be perceived.
             </p>
         </div>
 
 
-        <div class="section">
+        <div class="section section-inset">
             <h1 id="footer-title">A 24 hour snapshot</h1>
             <div class="row">
                 <div class="col-md-6">

@@ -8,7 +8,7 @@ h1 {
 }
 
 p {
-	font-size: 24px;
+	font-size: 20px;
 }
 
 #cover {
@@ -17,6 +17,10 @@ p {
 	background-size: cover;
 	height: 100vh;
 	padding: 0;
+}
+
+#cover-title, .cover-subtext {
+	padding-left: 20px;
 }
 
 #cover-title {
@@ -31,7 +35,6 @@ p {
 }
 
 .intro-title {
-	padding-top: 50px;
 	font-weight: bolder;
 	font-size: 64px;
 }
@@ -41,8 +44,7 @@ p {
 }
 
 #alien {
-	width: 200%;
-	padding-top: 150px;
+	width: 150%;
 	padding-right: 300px;
 }
 
@@ -245,4 +247,8 @@ td {
 
 .section {
 	background-color: white;
+}
+
+.section-inset {
+	padding: 50px;
 }
