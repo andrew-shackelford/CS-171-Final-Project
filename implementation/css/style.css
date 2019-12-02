@@ -166,8 +166,15 @@ p {
 	cursor: pointer;
 }
 
+#treemap-legend-div {
+	margin-right: 75px;
+	margin-top: 10px;
+}
+
 #treemap {
 	cursor: pointer;
+	text-align: center;
+	margin-right: 100px;
 }
 
 /*********************/
@@ -252,7 +259,7 @@ td {
 }
 
 .section {
-	background-color: white;
+	background-color: #d7d7d7;
 }
 
 .section-inset {

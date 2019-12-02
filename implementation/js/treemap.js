@@ -92,9 +92,23 @@ TreeMap.prototype.initVis = function() {
         return d.percent_cont;
     });
 
-    vis.colorScale = d3.scaleLinear()
-        .range([0.1, 0.9])
+    // vis.colorScale = d3.scaleLinear()
+    //     .range([0.1, 0.9])
+    //     .domain(vis.extentAvgScore);
+
+    // Set up sequential color scale and legend
+    vis.colorScale = d3.scaleSequential(d3.interpolateBlues)
         .domain(vis.extentAvgScore);
+
+    // Legend from https://d3-legend.susielu.com/#summary
+    vis.legendSvg = d3.select("#treemap-legend");
+    vis.legendSvg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(0, 0)");
+    vis.legendLinear = d3.legendColor()
+        .shapeWidth(75)
+        .orient("horizontal")
+        .scale(vis.colorScale);
 
     vis.wrangleData()
 
@@ -209,16 +223,37 @@ TreeMap.prototype.updateVis = function() {
         .attr("fill", function (d) {
             if (vis.colorValue === "avg-score") {
                 vis.colorScale.domain(vis.extentAvgScore);
-                return d3.interpolateBlues(vis.colorScale(d.data.avg_score))
+                vis.colorScale.interpolator(d3.interpolateBlues);
+                vis.legendLinear.labelFormat(d3.format(".2"));
+
+                // return d3.interpolateBlues(vis.colorScale(d.data.avg_score))
+                return vis.colorScale(d.data.avg_score)
             } else if (vis.colorValue === "top-score") {
                 vis.colorScale.domain(vis.extentTopScore);
-                return d3.interpolateBlues(vis.colorScale(d.data.top_score))
+                vis.colorScale.interpolator(d3.interpolateBlues);
+                vis.legendLinear.labelFormat(d3.format(",.4r"));
+
+                // return d3.interpolateBlues(vis.colorScale(d.data.top_score))
+                return vis.colorScale(d.data.top_score)
             } else if (vis.colorValue === "low-score") {
                 vis.colorScale.domain(vis.extentLowScore);
-                return d3.interpolateBlues(0.9 - vis.colorScale(d.data.low_score))
+                vis.colorScale.interpolator(d3.interpolateBlues);
+                vis.legendLinear.labelFormat(d3.format(",.3r"));
+
+                // return d3.interpolateBlues(vis.colorScale(d.data.low_score))
+                return vis.colorScale(d.data.low_score)
             } else {
                 vis.colorScale.domain(vis.extentCont);
-                return d3.interpolateRdBu(0.9 - vis.colorScale(d.data.percent_cont))
+                vis.colorScale.interpolator(d3.interpolateRdYlGn);
+                vis.interpolator = vis.colorScale.interpolator();
+                vis.mirror = function(t) {
+                    return vis.interpolator(1 - t);
+                };
+                vis.colorScale.interpolator(vis.mirror);
+                vis.legendLinear.labelFormat(d3.format(".0%"));
+
+                // return d3.interpolateRdYlGn(0.9 - vis.colorScale(d.data.percent_cont))
+                return vis.colorScale(d.data.percent_cont)
             }
         })
         .attr("opacity", 0.85)
@@ -226,9 +261,13 @@ TreeMap.prototype.updateVis = function() {
             if (vis.currTree == "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
             } else {
-                return "translate(0, 0)"
+                return "translate(-10, 0)"
             }
         });
+
+
+    vis.legendLinear.scale(vis.colorScale);
+    vis.legendSvg.select(".legendLinear").call(vis.legendLinear);
 
     // show name tooltip on mouseover
     vis.svg.selectAll(".subreddit-rect").call(vis.nameTooltip);
@@ -239,6 +278,8 @@ TreeMap.prototype.updateVis = function() {
         rectSelection.attr("opacity", 0.85);
         d3.select(this).attr("opacity", 1);
         vis.nameTooltip.show(d);
+
+        console.log(vis.nameTooltip)
     }).on("mouseout", function(d) {
         rectSelection.attr("opacity", 0.85);
         vis.nameTooltip.hide(d);
@@ -274,7 +315,7 @@ TreeMap.prototype.updateVis = function() {
             if (vis.currTree === "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
             } else {
-                return "translate(0, 0)"
+                return "translate(-10, 0)"
             }
         });
 
