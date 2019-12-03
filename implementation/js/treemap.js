@@ -278,8 +278,6 @@ TreeMap.prototype.updateVis = function() {
         rectSelection.attr("opacity", 0.85);
         d3.select(this).attr("opacity", 1);
         vis.nameTooltip.show(d);
-
-        console.log(vis.nameTooltip)
     }).on("mouseout", function(d) {
         rectSelection.attr("opacity", 0.85);
         vis.nameTooltip.hide(d);
