@@ -325,3 +325,14 @@ td {
 .section-inset {
 	padding: 50px;
 }
+
+.center-horizontal {
+	margin: auto;
+	width: 1100px;
+}
+
+.center-vertical {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
