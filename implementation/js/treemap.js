@@ -10,8 +10,8 @@ TreeMap.prototype.initVis = function() {
     var vis = this;
 
     vis.margin = {top: 10, right: 10, bottom: 10, left: 100}
-    vis.width = 1000 - vis.margin.left - vis.margin.right;
-    vis.height = 600 - vis.margin.top - vis.margin.bottom;
+    vis.width = 1050 - vis.margin.left - vis.margin.right;
+    vis.height = 650 - vis.margin.top - vis.margin.bottom;
 
     // Append divs for tooltip
     vis.divComments = d3.select(".treemap-container").append("div")
@@ -26,6 +26,7 @@ TreeMap.prototype.initVis = function() {
         .style("z-index", "10")
         .attr("opacity", 0);
 
+    vis.treemapRect = document.getElementById("treemap").getBoundingClientRect();
     vis.divCont = d3.select(".treemap-container").append("div")
         .attr("class", "tooltip-div")
         .style("position", "absolute")
@@ -44,10 +45,11 @@ TreeMap.prototype.initVis = function() {
 
     // Tooltip body
     vis.tooltip.append("rect")
+        .attr("id", "tooltip-rect")
         .attr("x", 400)
         .attr("y", 2)
         .attr("rx", 4)
-        .attr("width", 400)
+        .attr("width", 500)
         .attr("height", vis.height - 4)
         .attr("fill", "#2D76B3")
         .attr("opacity", 0);
@@ -55,7 +57,7 @@ TreeMap.prototype.initVis = function() {
     // Tooltip title text (will be subreddit name)
     vis.tooltip.append("text")
         .attr("id", "tooltip-text")
-        .attr("x", 600)
+        .attr("x", 650)
         .attr("y", 40)
         .text("")
         .attr("font-size", "22px")
@@ -64,13 +66,36 @@ TreeMap.prototype.initVis = function() {
         .attr("text-anchor", "middle")
         .attr("opacity", 0);
 
+    vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
+        "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+        "black", "black", "black", "black", "black", "black", "black"];
+
+    vis.clickedElement = [null, null, null];
+
     vis.treemapBtn = d3.select(".treemap-btn").style("visibility", "hidden");
 
     // Tooltip to display subreddit name
     vis.nameTooltip = d3.tip()
         .attr("class", "d3-tip")
         .html(function (d) {
-            return "<h6>" + d.data.key + "</h6>";
+            var htmlStr = "<h6>" + d.data.key + "</h6>";
+
+            if (vis.colorValue === "avg-score") {
+                htmlStr += "<p style='font-size: 13px'>Average score: <b>" + Math.round(d.data.avg_score) +
+                    "</b></p>"
+            } else if (vis.colorValue === "top-score") {
+                htmlStr += "<p style='font-size: 13px'>Top score: <b>" + (d.data.top_score).toLocaleString() +
+                    "</b> </p>"
+            } else if (vis.colorValue === "low-score") {
+                htmlStr += "<p style='font-size: 13px'>Lowest score: <b>" + (d.data.low_score).toLocaleString() +
+                    "</b> </p>"
+            } else {
+                htmlStr += "<p style='font-size: 13px'>Percent controversial: <b>" + d3.format(".1%")(d.data.percent_cont) +
+                    "</b> </p>"
+            }
+
+            htmlStr += "<p style='font-size: 12px'>Click to learn more</p>";
+            return htmlStr;
         });
 
     // Fill for rect
@@ -189,17 +214,17 @@ TreeMap.prototype.updateVis = function() {
     rects.enter()
         .append("rect")
         .attr("class", "subreddit-rect")
-        .on("click", function (d) {
-            if (vis.currTree == "treemapSquarify") {
-                vis.currTree = "treemapSlice";
-            } else {
-                vis.currTree = "treemapSlice";
-            }
-
-            vis.nameTooltip.hide();
-            vis.clicked(d);
-            vis.createTreeLayout();
-        })
+        // .on("click", function (d, i) {
+        //     if (vis.currTree === "treemapSquarify") {
+        //         vis.currTree = "treemapSlice";
+        //     } else {
+        //         vis.currTree = "treemapSlice";
+        //     }
+        //
+        //     vis.nameTooltip.hide();
+        //     vis.clicked(d, i);
+        //     vis.createTreeLayout();
+        // })
         .merge(rects)
         .transition()
         .duration(600)
@@ -211,7 +236,7 @@ TreeMap.prototype.updateVis = function() {
         })
         .attr('width', function (d) {
             if (vis.currTree === "treemapSlice") {
-                return d.x1 - d.x0 - 400;
+                return d.x1 - d.x0 - 450;
             } else {
                 return d.x1 - d.x0;
             }
@@ -219,7 +244,16 @@ TreeMap.prototype.updateVis = function() {
         .attr('height', function (d) {
             return d.y1 - d.y0;
         })
-        .attr("stroke", "black")
+        .attr("stroke", function (d, i) {
+            return vis.subredditStroke[i]
+        })
+        .attr("stroke-width", function (d, i) {
+            if (vis.subredditStroke[i] !== "black") {
+                return 3
+            } else {
+                return 1
+            }
+        })
         .attr("fill", function (d) {
             if (vis.colorValue === "avg-score") {
                 vis.colorScale.domain(vis.extentAvgScore);
@@ -258,7 +292,7 @@ TreeMap.prototype.updateVis = function() {
         })
         .attr("opacity", 0.85)
         .attr("transform", function(d) {
-            if (vis.currTree == "treemapSlice") {
+            if (vis.currTree === "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
             } else {
                 return "translate(-10, 0)"
@@ -281,6 +315,16 @@ TreeMap.prototype.updateVis = function() {
     }).on("mouseout", function(d) {
         rectSelection.attr("opacity", 0.85);
         vis.nameTooltip.hide(d);
+    }).on("click", function (d, i) {
+        if (vis.currTree === "treemapSquarify") {
+            vis.currTree = "treemapSlice";
+        } else {
+            vis.currTree = "treemapSlice";
+        }
+
+        vis.nameTooltip.hide();
+        vis.clicked(d, i, d3.select(this));
+        vis.createTreeLayout();
     });
 
     rects.exit().remove();
@@ -330,17 +374,40 @@ TreeMap.prototype.displayLabel = function(height, width, label) {
 }
 
 
-TreeMap.prototype.clicked = function(d) {
+TreeMap.prototype.clicked = function(d, index, rect) {
     var vis = this;
     // console.log(d.data.key + " was clicked")
     // console.log(d);
 
     // Update tooltip if needed
     if (vis.currTree === "treemapSlice") {
+        // Update clicked element (save values for color scale change)
+        vis.clickedElement = [d, index, rect];
+
+        vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+        vis.subredditStroke[index] = "#ff6314";
+        rect.attr("stroke", "#ff6314");
+        rect.attr("stroke-width", 5);
+
         d3.select("#tooltip").select("rect")
             .transition()
             .duration(600)
-            .attr("opacity", 0.5);
+            .attr("opacity", 0.85)
+            .attr("stroke-width", 2)
+            .attr("stroke", "#ff6314")
+            .attr("fill", function () {
+                if (vis.colorValue === "avg-score") {
+                    return vis.colorScale(d.data.avg_score)
+                } else if (vis.colorValue === "top-score") {
+                    return vis.colorScale(d.data.top_score)
+                } else if (vis.colorValue === "low-score") {
+                    return vis.colorScale(d.data.low_score)
+                } else {
+                    return vis.colorScale(d.data.percent_cont)
+                }
+            });
 
         d3.select("#tooltip").select("#tooltip-text")
             .transition()
@@ -355,39 +422,48 @@ TreeMap.prototype.clicked = function(d) {
             .text((d.data.values).toLocaleString());
 
 
-        var htmlStr = "<h5>Controversiality</h5>";
-        htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.controversial).toLocaleString() + "</b> controversial comments</li>";
-        htmlStr += "<li><b>" + d3.format(".2%")(d.data.percent_cont) + "</b> controversial</li></ul>";
+        vis.treemapRect = document.getElementById("treemap").getBoundingClientRect();
+
+        var htmlStr = "<div class='treemap-table-div'><table class='treemap-tooltip-table'><tr><th class='treemap-tooltip-header first'>Comments</th>" +
+            "<th class='treemap-tooltip-header'>Controversiality</th></tr>" +
+            "<tr><td class='treemap-tooltip-element'><b>" + (d.data.values).toLocaleString() + "</b> <br>comments</td>" +
+            "<td class='treemap-tooltip-element'><b>" + (d.data.controversial).toLocaleString() + "</b> <br>controversial comments</td></tr>" +
+            "<tr><td class='treemap-tooltip-element'><b>" + d3.format(".2%")(d.data.percentage) + "</b> <br>of all comments</td>" +
+            "<td class='treemap-tooltip-element'><b>" + d3.format(".2%")(d.data.percent_cont) + "</b> <br>controversial</td></tr></table></div>";
+
+        // var htmlStr = "<h5>Controversiality</h5>";
+        // htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.controversial).toLocaleString() + "</b> controversial comments</li>";
+        // htmlStr += "<li><b>" + d3.format(".2%")(d.data.percent_cont) + "</b> controversial</li></ul>";
         vis.divCont.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", 510 + "px")
-            .style("top", 105 + "px")
+            // .style("left", 510 + "px")
+            .style("left", (vis.treemapRect.width / 2.05) + "px")
+            // .style("top", 105 + "px")
+            .style("top", (vis.treemapRect.top + 40) + "px")
             .attr("opacity", 1);
 
-        var htmlStr = "<h5>Comments</h5>";
-        htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.values).toLocaleString() + "</b> comments</li>";
-        htmlStr += "<li><b>" + d3.format(".2%")(d.data.percentage) + "</b> of all comments</li></ul>";
-        vis.divComments.html(htmlStr)
-            .transition()
-            .duration(600)
-            .style("left", 510 + "px")
-            .style("top", 205 + "px")
-            .attr("opacity", 1);
+        // var htmlStr = "<h5>Comments</h5>";
+        // htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.values).toLocaleString() + "</b> comments</li>";
+        // htmlStr += "<li><b>" + d3.format(".2%")(d.data.percentage) + "</b> of all comments</li></ul>";
+        // vis.divComments.html(htmlStr)
+        //     .transition()
+        //     .duration(600)
+        //     .style("left", (vis.treemapRect.width / 2.05) + "px")
+        //     .style("top", (vis.treemapRect.top + 130) + "px")
+        //     .attr("opacity", 1);
 
-        htmlStr = "<h5>Scores</h5>";
-        htmlStr += "<ul class='treemap-ul'><li><b>" + Math.round(d.data.avg_score) + "</b> average score</li>";
-        htmlStr += "<li><b>" + (d.data.top_score).toLocaleString() + "</b> top score</li>";
-        htmlStr += "<li>top comment:</li></ul>";
+        // htmlStr = "<h5 class='treemap-scores-header'>Scores</h5>";
+        htmlStr = "<ul class='treemap-ul'><li><b>" + Math.round(d.data.avg_score) + "</b> average score</li>";
+        htmlStr += "<li><b>" + (d.data.top_score).toLocaleString() + "</b> top score with comment:</li></ul>";
         htmlStr += "<p class='treemap-p'>\"" + d.data.top_comment + "\"</p>";
-        htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.low_score).toLocaleString() + "</b> lowest score</li>";
-        htmlStr += "<li>lowest comment:</li></ul>";
+        htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.low_score).toLocaleString() + "</b> lowest score with comment:</li></ul>";
         htmlStr += "<p class='treemap-p'>\"" + d.data.low_comment + "\"</p>";
         vis.divScore.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", 510 + "px")
-            .style("top", 305 + "px")
+            .style("left", (vis.treemapRect.width / 2.05) + "px")
+            .style("top", (vis.treemapRect.top + 210) + "px")
             .attr("opacity", 1);
 
         var timer = d3.timer(function(elapsed) {
@@ -402,6 +478,10 @@ TreeMap.prototype.clicked = function(d) {
         // console.log(htmlStr);
 
     } else {
+        vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+
         d3.select("#tooltip").select("rect")
             .transition()
             .duration(600)
@@ -438,5 +518,10 @@ TreeMap.prototype.updateTreemapColor = function (btn) {
 
     vis.colorValue = btn.value;
     vis.updateVis();
+
+    // If treemapSlice, update clicked/selected tooltip color
+    if (vis.currTree === "treemapSlice") {
+        vis.clicked(vis.clickedElement[0], vis.clickedElement[1], vis.clickedElement[2])
+    }
 }
 

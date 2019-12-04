@@ -151,12 +151,16 @@ p {
 }
 
 .tooltip-div {
-	max-width: 380px;
+	max-width: 480px;
+	color: black;
 }
 
 .treemap-p {
 	font-style: italic;
-	font-size: 12px;
+	font-size: 14px;
+	/*background-color: rgba(215,215,215, 0.5);*/
+	color: rgb(215,215,215);
+	text-shadow: 1px 1px 2px black, 0 0 25px #ff6612, 0 0 5px #b64b11;
 }
 
 .treemap-btn {
@@ -175,6 +179,31 @@ p {
 	cursor: pointer;
 	text-align: center;
 	margin-right: 100px;
+}
+
+.treemap-tooltip-table {
+	margin: 0 auto;
+}
+
+.treemap-tooltip-table, .treemap-tooltip-header, .treemap-tooltip-element {
+	border-bottom: 1px solid black;
+}
+
+.treemap-tooltip-header, .treemap-tooltip-element {
+	padding: 3px 67px 3px 27px;
+}
+
+.treemap-tooltip-header, .treemap-scores-header {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.treemap-scores-header {
+	padding-left: 27px;
+}
+
+#tooltip-text {
+	text-shadow: 2px 2px 5px #222222;
 }
 
 /*********************/
