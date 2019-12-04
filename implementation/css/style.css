@@ -173,6 +173,10 @@ p {
 #treemap-legend-div {
 	margin-right: 75px;
 	margin-top: 10px;
+
+.treemap-radio-btn {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 #treemap {
