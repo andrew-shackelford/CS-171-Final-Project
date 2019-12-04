@@ -83,6 +83,9 @@ TreeMap.prototype.initVis = function() {
         "black", "black", "black", "black", "black", "black", "black"];
 
     vis.clickedElement = [null, null, null];
+    vis.askRedditElement = [null, null, null];
+    vis.newsElement = [null, null, null];
+    vis.freefolkElement = [null, null, null];
 
     vis.treemapBtn = d3.select(".treemap-btn").style("visibility", "hidden");
 
@@ -255,6 +258,13 @@ TreeMap.prototype.updateVis = function() {
             return d.y1 - d.y0;
         })
         .attr("stroke", function (d, i) {
+            if (i == 0) {
+                vis.askRedditElement = [d, i, d3.select(this)]
+            } else if (i == 16) {
+                vis.newsElement = [d, i, d3.select(this)]
+            } else if (i == 8) {
+                vis.freefolkElement = [d, i, d3.select(this)]
+            }
             return vis.subredditStroke[i]
         })
         .attr("stroke-width", function (d, i) {
@@ -301,7 +311,7 @@ TreeMap.prototype.updateVis = function() {
             }
         })
         .attr("opacity", 0.85)
-        .attr("transform", function(d) {
+        .attr("transform", function() {
             if (vis.currTree === "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
             } else {
@@ -500,5 +510,53 @@ TreeMap.prototype.updateTreemapColor = function (btn) {
     if (vis.currTree === "treemapSlice") {
         vis.clicked(vis.clickedElement[0], vis.clickedElement[1], vis.clickedElement[2])
     }
+}
+
+
+TreeMap.prototype.highlightTile = function (i) {
+    var vis = this;
+
+    vis.el = [null, null, null]
+
+    if (i == 0) {
+        vis.subredditStroke = ["#ff6314", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+        vis.el = vis.askRedditElement;
+    } else if (i == 16) {
+        vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black", "black", "#ff6314", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+        vis.el = vis.newsElement;
+    } else if (i == 5) {
+        vis.subredditStroke = ["black", "black", "black", "black", "black", "#ff6314", "black", "black",
+            "#ff6314", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+        vis.el = vis.freefolkElement;
+    } else if (i == 7) {
+        vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "#ff6314",
+            "#ff6314", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+            "black", "black", "black", "black", "black", "black", "black"];
+        vis.el = vis.freefolkElement;
+    }
+
+    vis.updateVis();
+
+    if (vis.currTree === "treemapSlice") {
+        vis.clicked(vis.el[0], vis.el[1], vis.el[2])
+    }
+}
+
+
+TreeMap.prototype.selectRadioBtn = function (id) {
+    var vis = this;
+
+    var btn = document.getElementById(id);
+    btn.checked = true;
+    vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
+        "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
+        "black", "black", "black", "black", "black", "black", "black"];
+
+    vis.updateTreemapColor(btn);
 }
 
