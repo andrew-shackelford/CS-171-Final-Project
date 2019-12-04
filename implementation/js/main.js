@@ -47,5 +47,9 @@ function updateWordCloud(value) {
 }
 
 $(document).ready(function() {
-    $('#pagepiling').pagepiling();
+    $('#pagepiling').pagepiling({
+        anchors: ['frontPage', 'infoPage', 'snapshotPage', 'commentPage', 'asterDescriptionPage', 'asterVisPage',
+            'treemapDescriptionPage', 'treemapVisPage', 'sentimentDescriptionPage', 'sentimentVisPage',
+            'wordsDescriptionPage', 'wordsVisPage', 'wordsAfterPage', 'conclusionPage'],
+    });
 });
