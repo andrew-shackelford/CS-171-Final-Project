@@ -39,13 +39,17 @@ p {
 	font-size: 64px;
 }
 
+/* do not center the text within each page */
+.pp-tableCell {
+	vertical-align: baseline;
+}
+
 #intro-row-2 {
 	padding-top: 10px;
 }
 
 #alien {
-	width: 150%;
-	padding-right: 300px;
+	width: 100%;
 }
 
 #timer {
