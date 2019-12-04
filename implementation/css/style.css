@@ -146,6 +146,12 @@ p {
 	position: relative;
 }
 
+#treemap-note {
+	font-size: 12px;
+	margin: -20px 0px 0px 60px;
+	color: #747474;
+}
+
 .treemap-ul {
 	padding-left: 25px;
 }
@@ -173,6 +179,7 @@ p {
 #treemap-legend-div {
 	margin-right: 75px;
 	margin-top: 10px;
+}
 
 .treemap-radio-btn {
 	margin-left: 10px;
