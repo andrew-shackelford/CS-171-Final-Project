@@ -13,26 +13,6 @@ TreeMap.prototype.initVis = function() {
     vis.width = 1050 - vis.margin.left - vis.margin.right;
     vis.height = 650 - vis.margin.top - vis.margin.bottom;
 
-    // Append divs for tooltip
-    vis.divComments = d3.select(".treemap-container").append("div")
-        .attr("class", "tooltip-div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .attr("opacity", 0);
-
-    vis.divScore = d3.select(".treemap-container").append("div")
-        .attr("class", "tooltip-div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .attr("opacity", 0);
-
-    vis.treemapRect = document.getElementById("treemap").getBoundingClientRect();
-    vis.divCont = d3.select(".treemap-container").append("div")
-        .attr("class", "tooltip-div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .attr("opacity", 0);
-
     vis.svg = d3.select(vis.parentElement).append("svg")
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
@@ -66,6 +46,38 @@ TreeMap.prototype.initVis = function() {
         .attr("text-anchor", "middle")
         .attr("opacity", 0);
 
+    // Append divs for tooltip through a foreign object
+    vis.foTable = vis.tooltip.append('foreignObject')
+        .attr("id", "tooltip-fo")
+        .attr("x", 403)
+        .attr("y", 50)
+        .attr("width", 500)
+        .attr("height", vis.height - 4)
+        .style("visibility", "hidden");
+
+    vis.divFoTable = vis.foTable.append('xhtml:div')
+        .append('div')
+        .attr("class", "tooltip-div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .attr("opacity", 0);
+
+    vis.foScore = vis.tooltip.append('foreignObject')
+        .attr("id", "tooltip-fo")
+        .attr("x", 403)
+        .attr("y", 210)
+        .attr("width", 500)
+        .attr("height", vis.height - 4)
+        .style("visibility", "hidden");
+
+    vis.divFoScore = vis.foScore.append('xhtml:div')
+        .append("div")
+        .attr("class", "tooltip-div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .attr("opacity", 0);
+
+
     vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
         "black", "black", "black", "black", "black", "black", "black", "black", "black", "black",
         "black", "black", "black", "black", "black", "black", "black"];
@@ -74,7 +86,8 @@ TreeMap.prototype.initVis = function() {
 
     vis.treemapBtn = d3.select(".treemap-btn").style("visibility", "hidden");
 
-    // Tooltip to display subreddit name
+
+    // Tooltip to display when hovering over treemap tile
     vis.nameTooltip = d3.tip()
         .attr("class", "d3-tip")
         .html(function (d) {
@@ -98,6 +111,7 @@ TreeMap.prototype.initVis = function() {
             return htmlStr;
         });
 
+
     // Fill for rect
     vis.colorValue = "avg-score";
 
@@ -116,10 +130,6 @@ TreeMap.prototype.initVis = function() {
     vis.extentCont = d3.extent(vis.data, function (d) {
         return d.percent_cont;
     });
-
-    // vis.colorScale = d3.scaleLinear()
-    //     .range([0.1, 0.9])
-    //     .domain(vis.extentAvgScore);
 
     // Set up sequential color scale and legend
     vis.colorScale = d3.scaleSequential(d3.interpolateBlues)
@@ -409,20 +419,13 @@ TreeMap.prototype.clicked = function(d, index, rect) {
                 }
             });
 
+
         d3.select("#tooltip").select("#tooltip-text")
             .transition()
             .duration(600)
             .attr("opacity", 1)
             .text(d.data.key);
 
-        d3.select("#tooltip").select("#tooltip-text-comments")
-            .transition()
-            .duration(600)
-            .attr("opacity", 1)
-            .text((d.data.values).toLocaleString());
-
-
-        vis.treemapRect = document.getElementById("treemap").getBoundingClientRect();
 
         var htmlStr = "<div class='treemap-table-div'><table class='treemap-tooltip-table'><tr><th class='treemap-tooltip-header first'>Comments</th>" +
             "<th class='treemap-tooltip-header'>Controversiality</th></tr>" +
@@ -430,28 +433,10 @@ TreeMap.prototype.clicked = function(d, index, rect) {
             "<td class='treemap-tooltip-element'><b>" + (d.data.controversial).toLocaleString() + "</b> <br>controversial comments</td></tr>" +
             "<tr><td class='treemap-tooltip-element'><b>" + d3.format(".2%")(d.data.percentage) + "</b> <br>of all comments</td>" +
             "<td class='treemap-tooltip-element'><b>" + d3.format(".2%")(d.data.percent_cont) + "</b> <br>controversial</td></tr></table></div>";
-
-        // var htmlStr = "<h5>Controversiality</h5>";
-        // htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.controversial).toLocaleString() + "</b> controversial comments</li>";
-        // htmlStr += "<li><b>" + d3.format(".2%")(d.data.percent_cont) + "</b> controversial</li></ul>";
-        vis.divCont.html(htmlStr)
+        vis.divFoTable.html(htmlStr)
             .transition()
             .duration(600)
-            // .style("left", 510 + "px")
-            .style("left", (vis.treemapRect.width / 2.05) + "px")
-            // .style("top", 105 + "px")
-            .style("top", (vis.treemapRect.top + 40) + "px")
             .attr("opacity", 1);
-
-        // var htmlStr = "<h5>Comments</h5>";
-        // htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.values).toLocaleString() + "</b> comments</li>";
-        // htmlStr += "<li><b>" + d3.format(".2%")(d.data.percentage) + "</b> of all comments</li></ul>";
-        // vis.divComments.html(htmlStr)
-        //     .transition()
-        //     .duration(600)
-        //     .style("left", (vis.treemapRect.width / 2.05) + "px")
-        //     .style("top", (vis.treemapRect.top + 130) + "px")
-        //     .attr("opacity", 1);
 
         // htmlStr = "<h5 class='treemap-scores-header'>Scores</h5>";
         htmlStr = "<ul class='treemap-ul'><li><b>" + Math.round(d.data.avg_score) + "</b> average score</li>";
@@ -459,23 +444,17 @@ TreeMap.prototype.clicked = function(d, index, rect) {
         htmlStr += "<p class='treemap-p'>\"" + d.data.top_comment + "\"</p>";
         htmlStr += "<ul class='treemap-ul'><li><b>" + (d.data.low_score).toLocaleString() + "</b> lowest score with comment:</li></ul>";
         htmlStr += "<p class='treemap-p'>\"" + d.data.low_comment + "\"</p>";
-        vis.divScore.html(htmlStr)
+        vis.divFoScore.html(htmlStr)
             .transition()
             .duration(600)
-            .style("left", (vis.treemapRect.width / 2.05) + "px")
-            .style("top", (vis.treemapRect.top + 210) + "px")
             .attr("opacity", 1);
 
         var timer = d3.timer(function(elapsed) {
-            vis.divCont.style("visibility", "visible");
-            vis.divComments.style("visibility", "visible");
-            vis.divScore.style("visibility", "visible");
+            vis.foTable.style("visibility", "visible");
+            vis.foScore.style("visibility", "visible");
             vis.treemapBtn.style("visibility", "visible");
             timer.stop();
-        }, 400)
-
-        // console.log("hello")
-        // console.log(htmlStr);
+        }, 300)
 
     } else {
         vis.subredditStroke = ["black", "black", "black", "black", "black", "black", "black", "black",
@@ -492,11 +471,9 @@ TreeMap.prototype.clicked = function(d, index, rect) {
             .duration(600)
             .attr("opacity", 0);
 
-        vis.divCont.style("visibility", "hidden");
+        vis.foTable.style("visibility", "hidden");
 
-        vis.divComments.style("visibility", "hidden");
-
-        vis.divScore.style("visibility", "hidden");
+        vis.foScore.style("visibility", "hidden");
 
         vis.treemapBtn.style("visibility", "hidden");
 

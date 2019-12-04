@@ -12,6 +12,14 @@
 </head>
 <body>
 
+<!--Anchors for linking pages-->
+<!--    <a href="#firstPage"></a>-->
+<!--    <a href="#secondPage"></a>-->
+<!--    <a href="#thirdPage"></a>-->
+<!--    <a href="#fourthPage"></a>-->
+<!--    <a href="#fifthPage"></a>-->
+<!--    <a href="#sixthPage"></a>-->
+
     <div id="pagepiling">
 
         <div class="section" id="cover">
@@ -25,14 +33,20 @@
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        Reddit calls itself “the front page of the Internet”: the website contains a vast number of forums called subreddits, each of which forms its own community. Topics range from today’s news to <a href="https://www.reddit.com/r/CatsStandingUp/">cats standing up.</a> Some subreddits are more question-and-answer based, whereas others serve as platforms via which members share web content with others.
+                        Reddit calls itself <i>The front page of the Internet:</i> the website contains a vast number of forums called subreddits, each of which forms its own community.
                     </p>
                     <p>
-                        Any Reddit user can create a subreddit as long as it follows Reddit’s content <a href="https://www.redditinc.com/policies/content-policy">policy.</a> To interact with the social aggregation site, Reddit users can post, comment, upvote, or downvote. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.  Users can also give awards to fellow users, which cost “Reddit coins,” which have to be purchased with real currency.
+                        Topics range from today’s news to <a href="https://www.reddit.com/r/CatsStandingUp/">cats standing up.</a> Some subreddits are more question-and-answer based, whereas others serve as platforms via which members share web content with others.
+                    </p>
+                    <p>
+                        Any Reddit user can create a subreddit as long as it follows Reddit’s content <a href="https://www.redditinc.com/policies/content-policy">policy.</a>
+                    </p>
+                    <p>
+                        To interact with the social aggregation site, Reddit users can <b>post</b>, <b>comment</b>, <b>upvote</b>, or <b>downvote</b>. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.  Users can also give awards to fellow users, which cost “Reddit coins,” which have to be purchased with real currency.
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://cnet4.cbsistatic.com/img/KtvUviAayQZyHbdwa5y7Xk0cfr4=/756x567/2018/08/01/dd960446-b6aa-4293-86a8-f7971bb7b3be/140523122303-reddit-alien-logo-horizontal-large-gallery.jpg" alt="Reddit Alien" id="alien">
+                    <img src="https://i.kym-cdn.com/photos/images/newsfeed/000/919/691/9e0.png" alt="Reddit Alien" id="alien">
                 </div>
             </div>
         </div>
@@ -40,19 +54,32 @@
         <div class="section section-inset">
             <h1 class="intro-title">A 24 hour snapshot</h1>
             <div class="row" id="intro-row-2">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <img src="https://image.flaticon.com/icons/png/512/21/21737.png" alt="24 hour timer" id="timer">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-7">
                     <p>
-                        Continue reading to explore the social activity occurring on Reddit. To do so, we will analyze reddit comments from one, randomly selected day in 2019.
+                        We will explore the social activity occurring on Reddit by analyzing <b>Reddit comments</b> from one, randomly selected day in 2019.
+                    </p>
+                    <p>
+                        This will allow us to show the <b>fluctuation of Reddit</b> in a 24 hour time period through the lens of <b>amount of activity</b>, <b>average score</b>, <b>average controversiality</b>, <b>top subreddits</b>, <b>sentiment</b> per subreddit, and <b>most common words</b> per subreddit.
+                    </p>
+                    <br>
+                    <p>
+                        All together, these displays will stitch together a 24 hour snapshot of Reddit helping answer:
+                        <ul>
+                            <li><a href="#asterVisPage">When should I post to receive a top score?</a></li>
+                            <li><a href="#asterVisPage">When's the most controversial time?</a></li>
+                            <li><a href="#treemapVisPage">What are the most popular subreddits?</a></li>
+                            <li><a href="#sentimentVisPage">What are the most positive/negative top subreddits?</a></li>
+                            <li><a href="#wordsVisPage">What are the most common words?</a></li>
+                            <li><a href="#wordsVisPage">What are the most positive/negative common words?</a></li>
+                        </ul>
                     </p>
                 </div>
-                <div class="col-md-4">
-                    <p>
-                        This will allow us to show the fluctuation of Reddit in a 24 hour time period through the lens of amount of activity, average score, average controversiality, top subreddits, sentiment per subreddit, and most common words per subreddit. All together, these displays will stitch together a 24 hour snapshot of Reddit.
-                    </p>
-                </div>
+<!--                <div class="col-md-4">-->
+<!--                    -->
+<!--                </div>-->
             </div>
         </div>
 
@@ -60,15 +87,25 @@
             <h1 class="intro-title">Breaking down a comment</h1>
             <div class="row">
                 <div class="col-md-6">
+                    <br>
                     <h2>The Score</h2>
                     <p>
-                        The score of a comment is calculated by the following equation:<br><br> <b># of upvotes – # of downvotes</b> <br><br>The higher the score, the more well-received the comment is in the subreddit.
+                        <b># of upvotes – # of downvotes</b>
+                    </p>
+                    <br>
+                    <p>
+                        The higher the score, the more well-received the comment is in the subreddit.
                     </p>
                 </div>
                 <div class="col-md-6">
+                    <br>
                     <h2>The Controversiality</h2>
                     <p>
-                        The controversiality score of a comment is either a 1 or a 0. It is assigned to a comment via an algorithm that is not released to the public.
+                        A <b>1 or 0</b>.
+                    </p>
+                    <br>
+                    <p>
+                        It is assigned to a comment via an algorithm that is not released to the public.
                     </p>
                 </div>
             </div>
@@ -77,7 +114,7 @@
         <div class="section section-inset">
             <h1 class="vis-title">24 hour fluctuation</h1>
 <!--            <h2 class="vis-subtitle"></h2>-->
-            <p>The amount of comments peak around 6 am EST while the score peaks around 11 pm EST. The charts below are in UTC time. To convert to EST, subtract 8 hours.</h2>
+            <p>The amount of comments peak around 6 am EST while the score peaks around 11 pm EST. The charts below are in UTC time. To convert to EST, subtract 8 hours.</p>
             <p>Each leaf of this aster plot represents one hour on June 1st, 2019. Depending on which category you have select, you can see how the number of comments, the average controversiality ratings, and the average scores of comments fluctuate over one day.</p>
             <p>The lightest shade of blue is the first hour of the day, and the darkest is the last.</p>
             <p class="vis-p">
@@ -101,17 +138,66 @@
 
         <div class="section section-inset">
             <h1 class="vis-title">The top subreddits</h1>
-            <h2>What is a subreddit?</h2>
-            <p>
-                To create order on Reddit, posts are organized by subject. Each subreddit denotes a user-created subject. To access a subreddit, one can go to r/subredditName to view the organized board of posts. Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit. Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.
-            </p>
-            <h2 class="vis-subtitle">What are the most active subreddits in a 24 hour snapshot?</h2>
-            <p class="vis-p">
-                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.
-            </p>
+            <br>
+
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is a subreddit?
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>
+                                To create order on Reddit, posts are organized by subject. Each subreddit denotes a <b>user-created subject</b>.
+                            </p>
+                            <p>
+                                To access a subreddit, one can go to <i>r/subredditName</i> to view the organized board of posts.
+                            </p>
+                            <p>
+                                Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit.
+                            </p>
+                            <p>
+                                Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            What are the most active subreddits in a 24 hour snapshot?
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>
+                                <i>On the next page, look for the following trends!</i>
+                            </p>
+                            <p>
+                                The most active subreddit is <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a>.
+                            </p>
+                            <p>
+                                We see that <a href="#treemapVisPage">few subreddits are controversial</a>. However, <a href="https://www.reddit.com/r/news/">r/news</a> is approximately 10% controversial.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!--            <h2>What is a subreddit?</h2>-->
+<!--            <p>-->
+<!--                To create order on Reddit, posts are organized by subject. Each subreddit denotes a user-created subject. To access a subreddit, one can go to r/subredditName to view the organized board of posts. Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit. Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.-->
+<!--            </p>-->
+<!--            <br>-->
+<!--            <h2>What are the most active subreddits in a 24 hour snapshot?</h2>-->
+<!--            <p class="vis-p">-->
+<!--                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.-->
+<!--            </p>-->
         </div>
         <div class="section section-inset">
-            <div class="treemap-container"></div>
             <p id="treemap-note"><b>*</b>Relative tile size corresponds to the amount of comments per subreddit.</p>
             <div class="treemap-vis">
                 <button class="treemap-btn btn" type="button" onclick="toTreemap()">
@@ -156,7 +242,8 @@
 
         <div class="section section-inset">
             <h1 class="vis-title">The sentiment of top subreddits</h1>
-            <h2 class="vis-subtitle">Advance through a day to view how the sentiment of each subreddit changes.</h2>
+            <br>
+            <h2>Advance through a day to view how the sentiment of each subreddit changes.</h2>
             <p class="vis-p">
                 As time reaches midday UTC (very early morning in the United States), the sentiment of the subreddits appears to become more negative. This occurs simultaneously with the peak amount of comments as displayed above. Since there are more comments, it makes sense that the sentiment might change because there is a greater total volume of comments being made.
             </p>
@@ -171,7 +258,8 @@
 
         <div class="section section-inset">
             <h1 class="vis-title">Impactful words</h1>
-            <h2 class="vis-subtitle">What are the most common words in each subreddit?</h2>
+            <br>
+            <h2>What are the most common words in each subreddit?</h2>
             <p>
                 To find the most impactful and common words per subreddit, we first filtered out common English stop words such as "a" and "the".
             </p>
