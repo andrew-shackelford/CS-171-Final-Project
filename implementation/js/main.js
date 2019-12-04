@@ -37,6 +37,14 @@ function updateTreemapColor(btn) {
     treeMap.updateTreemapColor(btn);
 }
 
+function highlightTile(i) {
+    treeMap.highlightTile(i);
+}
+
+function selectRadioBtn(id) {
+    treeMap.selectRadioBtn(id);
+}
+
 function updatePlotType() {
     asterPlot.updatePlotType();
 

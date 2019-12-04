@@ -154,10 +154,33 @@ p {
 
 .card-header {
 	background-color: #c3c3c3;
+	max-height: 58px;
 }
 
 .card-body {
 	background-color: #d7d7d7;
+}
+
+.card-header-text, .card-icon {
+	display: inline-block;
+}
+
+.card-icon {
+	float: right;
+	padding-top: 15px;
+}
+
+.card-icon:hover {
+	color: #007bff;
+	cursor: pointer;
+}
+
+.coordinated-word {
+	color: #ff6314;
+}
+
+.coordinated-word:hover {
+	color: #b64b11;
 }
 
 .treemap-container {

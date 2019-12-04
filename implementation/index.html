@@ -143,9 +143,12 @@
             <div id="accordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
-                        <h2 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is a subreddit?
-                        </h2>
+                        <div class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h3 class="card-header-text">
+                                What is a subreddit?
+                            </h3>
+                            <i class="fa fa-hand-pointer-o card-icon"></i>
+                        </div>
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
@@ -167,20 +170,34 @@
 
                 <div class="card">
                     <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            What are the most active subreddits in a 24 hour snapshot?
-                        </h2>
+                        <div class ="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h3 class="card-header-text">
+                                What subreddit trends do we see in a 24 hour snapshot?
+                            </h3>
+                            <i class="fa fa-hand-pointer-o card-icon"></i>
+                        </div>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
                             <p>
-                                <i>On the next page, look for the following trends!</i>
+                                <i>Find the following trends on the next page!</i>
+                                <br>(Orange links will coordinate the view, blue links will take you to a different webpage).
+                            </p>
+                            <br>
+                            <p>
+                                The <a class="coordinated-word" href="#treemapVisPage" onclick="highlightTile(0)">most active subreddit</a> is <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a>.
                             </p>
                             <p>
-                                The most active subreddit is <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a>.
+                                <a href="https://www.reddit.com/r/AskReddit/">r/freefolk</a> and <a href="https://www.reddit.com/r/AmItheAsshole/">r/AmItheAsshole</a> tie for the highest <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('avg-radio-btn'); highlightTile(7)">average scoring comment</a>.
                             </p>
                             <p>
-                                We see that <a href="#treemapVisPage">few subreddits are controversial</a>. However, <a href="https://www.reddit.com/r/news/">r/news</a> is approximately 10% controversial.
+                                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> takes the cake again with the greatest <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('top-radio-btn'); highlightTile(0)">top scoring comment</a>.
+                            </p>
+                            <p>
+                                We see <a href="https://www.reddit.com/r/freefolk/">r/freefolk</a> again, this time with <a href="https://www.reddit.com/r/dankmemes/">r/dankmemes</a> which have the <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('low-radio-btn'); highlightTile(5)">lowest scoring comments</a>.
+                            </p>
+                            <p>
+                                We see that <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('cont-radio-btn')">few subreddits are controversial</a>. However, <a href="https://www.reddit.com/r/news/">r/news</a> is approximately <a class="coordinated-word" href="#treemapVisPage" onclick="highlightTile(16)">10% controversial</a>.
                             </p>
                         </div>
                     </div>
@@ -198,6 +215,7 @@
 <!--            </p>-->
         </div>
         <div class="section section-inset">
+<!--            <br><br><br>-->
             <p id="treemap-note"><b>*</b>Relative tile size corresponds to the amount of comments per subreddit.</p>
             <div class="treemap-vis">
                 <button class="treemap-btn btn" type="button" onclick="toTreemap()">
@@ -205,28 +223,28 @@
                 </button>
 
                 <div class="pretty p-round p-fill p-jelly">
-                    <input type="radio" value="avg-score" name="icon_solid" checked="checked" onclick="updateTreemapColor(this)">
+                    <input id="avg-radio-btn" type="radio" value="avg-score" name="icon_solid" checked="checked" onclick="updateTreemapColor(this)">
                     <div class="state p-primary">
                         <label>Average score</label>
                     </div>
                 </div>
 
                 <div class="pretty p-round p-fill p-jelly">
-                    <input type="radio" value="top-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <input id="top-radio-btn" type="radio" value="top-score" name="icon_solid" onclick="updateTreemapColor(this)">
                     <div class="state p-primary">
                         <label>Top score</label>
                     </div>
                 </div>
 
                 <div class="pretty p-round p-fill p-jelly">
-                    <input type="radio" value="low-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <input id="low-radio-btn" type="radio" value="low-score" name="icon_solid" onclick="updateTreemapColor(this)">
                     <div class="state p-primary">
                         <label>Low score</label>
                     </div>
                 </div>
 
                 <div class="pretty p-round p-fill p-jelly">
-                    <input type="radio" value="controversiality" name="icon_solid" onclick="updateTreemapColor(this)">
+                    <input id="cont-radio-btn" type="radio" value="controversiality" name="icon_solid" onclick="updateTreemapColor(this)">
                     <div class="state p-primary">
                         <label>Controversiality</label>
                     </div>
