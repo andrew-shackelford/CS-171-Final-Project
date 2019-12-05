@@ -47,7 +47,10 @@ function selectRadioBtn(id) {
 
 function updatePlotType() {
     asterPlot.updatePlotType();
+}
 
+function changeSelectBox(id) {
+    asterPlot.changeSelectBox(id);
 }
 
 function updateWordCloud(value) {
