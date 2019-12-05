@@ -1,7 +1,8 @@
 /* custom css rules */
 
 body {
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Rubik', sans-serif;
 }
 
 h1 {
@@ -11,12 +12,20 @@ p {
 	font-size: 20px;
 }
 
-#cover {
-	/*background-image: url(../img/dog1.jpeg);*/
-	background-image: url("https://img.freepik.com/free-photo/wall-wallpaper-concrete-colored-painted-textured-concept_53876-31799.jpg?size=626&ext=jpg");
-	background-size: cover;
-	height: 100vh;
-	padding: 0;
+/*#cover {*/
+/*	!*background-image: url(../img/dog1.jpeg);*!*/
+/*	background-image: url("https://img.freepik.com/free-photo/wall-wallpaper-concrete-colored-painted-textured-concept_53876-31799.jpg?size=626&ext=jpg");*/
+/*	background-size: cover;*/
+/*	height: 100vh;*/
+/*	padding: 0;*/
+/*}*/
+
+.icon:hover {
+	opacity: 0.6;
+}
+
+.cover-tip {
+	font-family: 'Rubik', sans-serif;
 }
 
 #cover-title, .cover-subtext {
@@ -339,6 +348,7 @@ td {
 
 #wordcloud {
 	padding-top: 10px;
+	text-align: center;
 }
 
 .section {

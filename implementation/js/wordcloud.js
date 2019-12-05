@@ -1,4 +1,3 @@
-
 WordCloud = function(_parentElement, _data) {
     this.parentElement = _parentElement;
     this.data = _data;
@@ -9,22 +8,26 @@ WordCloud = function(_parentElement, _data) {
 WordCloud.prototype.initVis = function() {
     var vis = this;
 
-    vis.margin = {top: 350, right: 200, bottom: 10, left: 550};
-    vis.width = 1000 - vis.margin.left - vis.margin.right;
+    vis.margin = {top: 0, right: 0, bottom: 10, left: 0};
+    vis.width = 800 - vis.margin.left - vis.margin.right;
     vis.height = 700 - vis.margin.top - vis.margin.bottom;
 
     vis.svg = d3.select(vis.parentElement).append("svg")
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+        .attr("transform", "translate(350,350)");
 
     vis.fill = d3.scaleOrdinal(d3.schemeCategory10);
 
-    vis.xScale = d3.scaleLinear()
-        .range([30,120]);
+    /*vis.fill2 = d3.scaleSequential(d3.interpolateRdYlGn)
+        .domain([-5, 5]);
+    console.log(vis.fill2(5));*/
 
-    vis.updateVis("leagueoflegends");
+    vis.xScale = d3.scaleLinear()
+        .range([30,100]);
+
+    vis.updateVis("AmItheAsshole");
 }
 
 
@@ -37,10 +40,12 @@ WordCloud.prototype.updateVis = function(key) {
         return d.value;
     })]);
 
-    d3.layout.cloud().size([vis.width * 5, vis.height * 3])
+    d3.layout.cloud().size([vis.width, vis.height])
         .timeInterval(20)
         .words(filteredData)
-        .fontSize(function(d) { return vis.xScale(+d.value); })
+        .padding(3)
+        .font('Rubik')
+        .fontSize(function(d) {return vis.xScale(+d.value); })
         .text(function(d) { return d.key; })
         .rotate(function() { return ~~(Math.random() * 2) * 90; })
         .on("end", draw)
@@ -58,7 +63,8 @@ WordCloud.prototype.updateVis = function(key) {
             .style("fill", function(d, i) { return vis.fill(d.key); })
             .transition()
             .duration(750)
-            .style("font-size", function(d) { return vis.xScale(d.value) + "px";})
+            .attr('font-family', 'Rubik, sans-serif')
+            .style("font-size", function(d) { return vis.xScale(d.value)-10 + "px";})
             .attr("transform", function(d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
             });
@@ -70,9 +76,13 @@ WordCloud.prototype.updateVis = function(key) {
             .remove();
 
         cloud.enter().append("text")
+            .on("click", function(d) {
+                document.getElementById("word-info").innerHTML =
+                    "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
+            })
             .attr("text-anchor", "middle")
             .attr("transform", function(d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                return "translate(" + [d.x+20, d.y+20] + ")rotate(" + d.rotate + ")";
             })
             .text(function(d) { return d.key; })
             .style("font-size", function(d) { return vis.xScale(d.value) + "px"; })
@@ -80,6 +90,7 @@ WordCloud.prototype.updateVis = function(key) {
             .style("opacity", 0)
             .transition()
             .duration(750)
+            .attr('font-family', 'Rubik, sans-serif')
             .style("opacity", 1);
     }
 
