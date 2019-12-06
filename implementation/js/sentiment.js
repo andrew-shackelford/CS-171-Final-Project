@@ -67,13 +67,13 @@ SentimentBubbleCloud.prototype.initVis = function(){
 
     slider.insert("g", ".track-overlay")
         .attr("class", "ticks")
-        .attr("transform", "translate(0," + 18 + ")")
+        .attr("transform", "translate(0,18)")
         .selectAll("text")
         .data(vis.x.ticks(24))
         .enter().append("text")
         .attr("x", vis.x)
         .attr("text-anchor", "middle")
-        .text(function(d) { return vis.formatter(vis.parser(d)).replace(/^0+/, ''); });
+        .text(function(d) { return vis.formatter(vis.parser(d + 20)).replace(/^0+/, ''); });
 
     vis.handle = slider.insert("circle", ".track-overlay")
         .attr("class", "handle")
@@ -223,6 +223,15 @@ SentimentBubbleCloud.prototype.update = function(value) {
 
     vis.drawSentimentVis();
 };
+
+SentimentBubbleCloud.prototype.showTrend = function() {
+    var vis = this;
+    vis.update(8);
+    setTimeout(function() { vis.update(9); }, 750);
+    setTimeout(function() { vis.update(10); }, 1500);
+    setTimeout(function() { vis.update(11); }, 2250);
+    setTimeout(function() { vis.update(12); }, 3000);
+}
 
 
 
