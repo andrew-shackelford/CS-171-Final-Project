@@ -284,6 +284,10 @@ p {
 	transition: all 0.2s;
 }
 
+#asterplot {
+	cursor: pointer;
+}
+
 #aster-table {
 	margin-top: 80px;
 }
@@ -291,6 +295,7 @@ p {
 #aster-type {
 	margin-top: 30px;
 }
+
 
 td {
 	white-space: nowrap;

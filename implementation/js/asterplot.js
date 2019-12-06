@@ -25,7 +25,7 @@ AsterPlot.prototype.initVis = function() {
 
     vis.tip = d3.tip()
         .attr('class', 'd3-tip-padding')
-        .offset([0, 0])
+        .offset([10, -10])
         .html(function(d, i) {
             return "<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
@@ -128,6 +128,7 @@ AsterPlot.prototype.updatePlotType = function() {
     vis.svg.selectAll('.solidArc')
         .data([])
         .exit().remove();
+
     vis.svg.selectAll('.center-text')
         .text("")
         .exit().remove();
@@ -158,6 +159,35 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("stroke", "black")
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
+
+    // appending hour markers
+    vis.svg.append("text")
+        .attr("x", "28")
+        .attr("y", "-260")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 am");
+
+    vis.svg.append("text")
+        .attr("x", "-40")
+        .attr("y", "270")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 pm");
+
+    vis.svg.append("text")
+        .attr("x", "275")
+        .attr("y", "35")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 am");
+
+    vis.svg.append("text")
+        .attr("x", "-275")
+        .attr("y", "-30")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 pm");
 
 };
 
