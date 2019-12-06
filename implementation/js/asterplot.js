@@ -44,6 +44,8 @@ AsterPlot.prototype.initVis = function() {
 
     vis.svg.call(vis.tip);
 
+    vis.colorScale = d3.scaleSequential(d3.interpolateBlues);
+
     // aggregate all data associated with an hour in the day
     vis.byHour = [];
 
@@ -83,8 +85,6 @@ AsterPlot.prototype.initVis = function() {
             "total" : total,
             "controversiality" : controversiality,
             "score" : score,
-            // temporary color scheme (built-in)
-            "color" : d3.interpolateBlues(hourInt/24)
         });
     });
 
@@ -102,11 +102,17 @@ AsterPlot.prototype.updatePlotType = function() {
 
     var asterType = d3.select("#aster-type").node().value;
 
+    var extent = d3.extent(vis.byHour, function (d) {
+        return d[asterType.toString()];
+    });
+
+    vis.colorScale.domain(extent);
+
     vis.arc.outerRadius(function (d) {
         if (asterType === "controversiality") {
             return (vis.radius - vis.innerRadius) * (d.data.controversiality * 1.21) + vis.innerRadius;
         }
-        if (asterType === "comments") {
+        if (asterType === "total") {
             return (vis.radius - vis.innerRadius) * (d.data.total / 56000) + vis.innerRadius;
         }
         if (asterType === "score") {
@@ -125,7 +131,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .data(vis.pie(vis.byHour))
         .enter().append("path")
         .attr("fill", function(d) {
-            return d.data.color;
+                return vis.colorScale(d.data[asterType.toString()])
         })
         .attr("class", "solidArc")
         .attr("stroke", "black")
@@ -136,10 +142,10 @@ AsterPlot.prototype.updatePlotType = function() {
         .on('mouseover', vis.tip.show)
         .on('mouseout', vis.tip.hide)
         .on("click", function(d){
-            console.log(d);
             vis.tableCreate(d)
         });
 
+    // do not remove code, even though var outerPath is not being used
     var outerPath = vis.svg.selectAll(".outlineArc")
         .data(vis.pie(vis.byHour))
         .enter().append("path")
