@@ -20,10 +20,6 @@ WordCloud.prototype.initVis = function() {
 
     vis.fill = d3.scaleOrdinal(d3.schemeCategory10);
 
-    /*vis.fill2 = d3.scaleSequential(d3.interpolateRdYlGn)
-        .domain([-5, 5]);
-    console.log(vis.fill2(5));*/
-
     vis.xScale = d3.scaleLinear()
         .range([30,100]);
 

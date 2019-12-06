@@ -2,7 +2,6 @@
 
 body {
 	font-family: 'Raleway', sans-serif;
-	/*font-family: 'Rubik', sans-serif;*/
 }
 
 h1 {
@@ -11,14 +10,6 @@ h1 {
 p {
 	font-size: 20px;
 }
-
-/*#cover {*/
-/*	!*background-image: url(../img/dog1.jpeg);*!*/
-/*	background-image: url("https://img.freepik.com/free-photo/wall-wallpaper-concrete-colored-painted-textured-concept_53876-31799.jpg?size=626&ext=jpg");*/
-/*	background-size: cover;*/
-/*	height: 100vh;*/
-/*	padding: 0;*/
-/*}*/
 
 .icon:hover {
 	opacity: 0.6;
@@ -78,10 +69,6 @@ p {
 }
 
 .vis-title {
-	/*padding-top: 30px;*/
-	/*font-size: 56px;*/
-	/*font-weight: bold;*/
-	/*text-align: center;*/
 	font-weight: bolder;
 	font-size: 64px;
 }
@@ -216,7 +203,6 @@ p {
 .treemap-p {
 	font-style: italic;
 	font-size: 14px;
-	/*background-color: rgba(215,215,215, 0.5);*/
 	color: rgb(215,215,215);
 	text-shadow: 1px 1px 2px black, 0 0 25px #ff6612, 0 0 5px #b64b11;
 }
@@ -370,4 +356,17 @@ td {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+/* TOOLTIPS FOR ASTERPLOT */
+
+.d3-tip-aster {
+	padding: 12px;
+	position: absolute;
+	text-align: center;
+	color: #fff;
+	font: 12px sans-serif;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 15px;
+	pointer-events: none;
 }
