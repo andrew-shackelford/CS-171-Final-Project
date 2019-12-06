@@ -1,4 +1,3 @@
-
 WordCloud = function(_parentElement, _data) {
     this.parentElement = _parentElement;
     this.data = _data;
@@ -23,7 +22,6 @@ WordCloud.prototype.initVis = function() {
 
     /*vis.fill2 = d3.scaleSequential(d3.interpolateRdYlGn)
         .domain([-5, 5]);
-
     console.log(vis.fill2(5));*/
 
     vis.xScale = d3.scaleLinear()
@@ -78,7 +76,7 @@ WordCloud.prototype.updateVis = function(key) {
             .remove();
 
         cloud.enter().append("text")
-            .on("click", function(d) {
+            .on("mouseover", function(d) {
                 document.getElementById("word-info").innerHTML =
                     "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
             })

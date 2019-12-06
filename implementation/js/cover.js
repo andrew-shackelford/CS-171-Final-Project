@@ -85,4 +85,3 @@ svg.append("text")
     .style("font-family","Rubik, sans-serif")
     .style("font-size", "30px")
     .style("font-weight", "bold");
-

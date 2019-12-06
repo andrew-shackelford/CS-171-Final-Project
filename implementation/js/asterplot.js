@@ -212,6 +212,7 @@ AsterPlot.prototype.compareTotal = function(a, b, cat) {
     return comparison;
 }
 
+
 AsterPlot.prototype.compareHour = function(a, b) {
     var totalA = a.hour;
     var totalB = b.hour;
@@ -223,4 +224,13 @@ AsterPlot.prototype.compareHour = function(a, b) {
         comparison = 1;
     }
     return comparison;
+}
+
+
+AsterPlot.prototype.changeSelectBox = function (id) {
+    var vis = this;
+
+    document.getElementById("aster-type").selectedIndex = id;
+
+    vis.updatePlotType();
 }

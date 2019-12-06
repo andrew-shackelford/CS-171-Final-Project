@@ -7,266 +7,443 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.pagepiling.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div id="pagepiling">
-    <div class="section" id="cover">
-        <!-- <h1 id="cover-title">A 24 hour snapshot of Reddit</h1>
-        <h2 class="cover-subtext">Visualizing the front page of the Internet</h2>
-        <h4 class="cover-subtext">Hanna Kim, Jennifer Lee, Sarah Lucioni, and Andrew Shackelford</h4> -->
-    </div>
+<!--Anchors for linking pages-->
+<!--    <a href="#firstPage"></a>-->
+<!--    <a href="#secondPage"></a>-->
+<!--    <a href="#thirdPage"></a>-->
+<!--    <a href="#fourthPage"></a>-->
+<!--    <a href="#fifthPage"></a>-->
+<!--    <a href="#sixthPage"></a>-->
 
-    <div class="section section-inset">
-        <h1 class="intro-title">The front page of the Internet</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <p>
-                    Reddit calls itself “the front page of the Internet”: the website contains a vast number of forums called subreddits, each of which forms its own community. Topics range from today’s news to <a href="https://www.reddit.com/r/CatsStandingUp/">cats standing up.</a> Some subreddits are more question-and-answer based, whereas others serve as platforms via which members share web content with others.
-                </p>
-                <p>
-                    Any Reddit user can create a subreddit as long as it follows Reddit’s content <a href="https://www.redditinc.com/policies/content-policy">policy.</a> To interact with the social aggregation site, Reddit users can post, comment, upvote, or downvote. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.  Users can also give awards to fellow users, which cost “Reddit coins,” which have to be purchased with real currency.
-                </p>
-            </div>
-            <div class="col-md-6">
-                <img src="https://cnet4.cbsistatic.com/img/KtvUviAayQZyHbdwa5y7Xk0cfr4=/756x567/2018/08/01/dd960446-b6aa-4293-86a8-f7971bb7b3be/140523122303-reddit-alien-logo-horizontal-large-gallery.jpg" alt="Reddit Alien" id="alien">
-            </div>
+    <div id="pagepiling">
+
+        <div class="section" id="cover">
+<!--            <h1 id="cover-title">A 24 hour snapshot of Reddit</h1>-->
+<!--            <h2 class="cover-subtext">Visualizing the front page of the Internet</h2>-->
+<!--            <h4 class="cover-subtext">Hanna Kim, Jennifer Lee, Sarah Lucioni, and Andrew Shackelford</h4>-->
         </div>
-    </div>
 
-    <div class="section section-inset">
-        <h1 class="intro-title">A 24 hour snapshot</h1>
-        <div class="row" id="intro-row-2">
-            <div class="col-md-4">
-                <img src="https://image.flaticon.com/icons/png/512/21/21737.png" alt="24 hour timer" id="timer">
-            </div>
-            <div class="col-md-4">
-                <p>
-                    Continue reading to explore the social activity occurring on Reddit. To do so, we will analyze reddit comments from one, randomly selected day in 2019.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <p>
-                    This will allow us to show the fluctuation of Reddit in a 24 hour time period through the lens of amount of activity, average score, average controversiality, top subreddits, sentiment per subreddit, and most common words per subreddit. All together, these displays will stitch together a 24 hour snapshot of Reddit.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section section-inset">
-        <h1 class="intro-title">Breaking down a comment</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <h2>The Score</h2>
-                <p>
-                    The score of a comment is calculated by the following equation:<br><br> <b># of upvotes – # of downvotes</b> <br><br>The higher the score, the more well-received the comment is in the subreddit.
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h2>The Controversiality</h2>
-                <p>
-                    The controversiality score of a comment is either a 1 or a 0. It is assigned to a comment via an algorithm that is not released to the public.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section section-inset">
-        <h1 class="vis-title">24 hour fluctuation</h1>
-        <!--            <h2 class="vis-subtitle"></h2>-->
-        <p>The amount of comments peak around 6 am EST while the score peaks around 11 pm EST. The charts below are in UTC time. To convert to EST, subtract 8 hours.</h2>
-        <p>Each leaf of this aster plot represents one hour on June 1st, 2019. Depending on which category you have select, you can see how the number of comments, the average controversiality ratings, and the average scores of comments fluctuate over one day.</p>
-        <p>The lightest shade of blue is the first hour of the day, and the darkest is the last.</p>
-        <p class="vis-p">
-            The amount of comments peaks around the late afternoon in the United States. This trend suggests that a lot of Reddit users are active toward the end of the workday. Interestingly, we see that the highest score peaks more towards the early morning in the United States. Unlike the number of comments and the average score, the controversiality score does not fluctuate very much throughout the day.
-        </p>
-    </div>
-    <div class="section section-inset">
-        <div>
-            <select id="aster-type" onchange="updatePlotType()">
-                <option value="comments"># of comments</option>
-                <option value="controversiality">Average Controversiality</option>
-                <option value="score">Average Score</option>
-            </select>
-        </div>
-        <!--            <div id="asterplot"></div>-->
-        <div class="row">
-            <div class="col-md-7" id="asterplot"></div>
-            <div class="col-md-4" id="aster-table"></div>
-        </div>
-    </div>
-
-    <div class="section section-inset">
-        <h1 class="vis-title">The top subreddits</h1>
-        <h2>What is a subreddit?</h2>
-        <p>
-            To create order on Reddit, posts are organized by subject. Each subreddit denotes a user-created subject. To access a subreddit, one can go to r/subredditName to view the organized board of posts. Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit. Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.
-        </p>
-        <h2 class="vis-subtitle">What are the most active subreddits in a 24 hour snapshot?</h2>
-        <p class="vis-p">
-            <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.
-        </p>
-    </div>
-    <div class="section section-inset">
-        <div class="treemap-container"></div>
-        <p id="treemap-note"><b>*</b>Relative tile size corresponds to the amount of comments per subreddit.</p>
-        <div class="treemap-vis">
-            <button class="treemap-btn btn" type="button" onclick="toTreemap()">
-                <i class="fa fa-arrow-left"></i>
-            </button>
-
-            <div class="pretty p-round p-fill p-jelly">
-                <input type="radio" value="avg-score" name="icon_solid" checked="checked" onclick="updateTreemapColor(this)">
-                <div class="state p-primary">
-                    <label>Average score</label>
+        <div class="section section-inset">
+            <h1 class="intro-title">The front page of the Internet</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Reddit calls itself <i>The front page of the Internet:</i> the website contains a vast number of forums called subreddits, each of which forms its own community.
+                    </p>
+                    <p>
+                        Topics range from today’s news to <a href="https://www.reddit.com/r/CatsStandingUp/">cats standing up.</a> Some subreddits are more question-and-answer based, whereas others serve as platforms via which members share web content with others.
+                    </p>
+                    <p>
+                        Any Reddit user can create a subreddit as long as it follows Reddit’s content <a href="https://www.redditinc.com/policies/content-policy">policy.</a>
+                    </p>
+                    <p>
+                        To interact with the social aggregation site, Reddit users can <b>post</b>, <b>comment</b>, <b>upvote</b>, or <b>downvote</b>. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.  Users can also give awards to fellow users, which cost “Reddit coins,” which have to be purchased with real currency.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://i.kym-cdn.com/photos/images/newsfeed/000/919/691/9e0.png" alt="Reddit Alien" id="alien">
                 </div>
             </div>
+        </div>
 
-            <div class="pretty p-round p-fill p-jelly">
-                <input type="radio" value="top-score" name="icon_solid" onclick="updateTreemapColor(this)">
-                <div class="state p-primary">
-                    <label>Top score</label>
+        <div class="section section-inset">
+            <div class="center-vertical">
+                <h1 class="intro-title">A 24 hour snapshot</h1>
+                <div class="row" id="intro-row-2">
+                    <div class="col-md-5">
+                        <img src="https://image.flaticon.com/icons/png/512/21/21737.png" alt="24 hour timer" id="timer">
+                    </div>
+                    <div class="col-md-7">
+                        <p>
+                            We will explore the social activity occurring on Reddit by analyzing <b>Reddit comments</b> from one, randomly selected day in 2019.
+                        </p>
+                        <p>
+                            This will allow us to show the <b>fluctuation of Reddit</b> in a 24 hour time period through the lens of <b>amount of activity</b>, <b>average score</b>, <b>average controversiality</b>, <b>top subreddits</b>, <b>sentiment</b> per subreddit, and <b>most common words</b> per subreddit.
+                        </p>
+                        <br>
+                        <p>
+                            All together, these displays will stitch together a 24 hour snapshot of Reddit helping answer:
+                            <ul>
+                                <li><a href="#asterVisPage">When should I post to receive a top score?</a></li>
+                                <li><a href="#asterVisPage">When's the most controversial time?</a></li>
+                                <li><a href="#treemapVisPage">What are the most popular subreddits?</a></li>
+                                <li><a href="#sentimentVisPage">What are the most positive/negative top subreddits?</a></li>
+                                <li><a href="#wordsVisPage">What are the most common words?</a></li>
+                                <li><a href="#wordsVisPage">What are the most positive/negative common words?</a></li>
+                            </ul>
+                        </p>
+                    </div>
+    <!--                <div class="col-md-4">-->
+    <!--                    -->
+    <!--                </div>-->
                 </div>
             </div>
+        </div>
 
-            <div class="pretty p-round p-fill p-jelly">
-                <input type="radio" value="low-score" name="icon_solid" onclick="updateTreemapColor(this)">
-                <div class="state p-primary">
-                    <label>Low score</label>
+        <div class="section section-inset">
+            <div class="center-vertical">
+                <h1 class="intro-title">Breaking down a comment</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <br>
+                        <h2>The Score</h2>
+                        <p>
+                            <b># of upvotes – # of downvotes</b>
+                        </p>
+                        <br>
+                        <p>
+                            The higher the score, the more well-received the comment is in the subreddit.
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <br>
+                        <h2>The Controversiality</h2>
+                        <p>
+                            A <b>1 or 0</b>.
+                        </p>
+                        <br>
+                        <p>
+                            It is assigned to a comment via an algorithm that is not released to the public.
+                        </p>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="pretty p-round p-fill p-jelly">
-                <input type="radio" value="controversiality" name="icon_solid" onclick="updateTreemapColor(this)">
-                <div class="state p-primary">
-                    <label>Controversiality</label>
+        <div class="section section-inset">
+            <div class="center-vertical">
+                <h1 class="vis-title">24 hour fluctuation</h1>
+                <br>
+
+                <div id="accordion-aster">
+                    <div class="card">
+                        <div class="card-header" id="headingOne-aster">
+                            <div class="mb-0" data-toggle="collapse" data-target="#collapseOne-aster" aria-expanded="true" aria-controls="collapseOne-aster">
+                                <h3 class="card-header-text">
+                                    What does the plot below represent?
+                                </h3>
+                                <i class="fa fa-hand-pointer-o card-icon"></i>
+                            </div>
+                        </div>
+                        <div id="collapseOne-aster" class="collapse show" aria-labelledby="headingOne-aster" data-parent="#accordion-aster">
+                            <div class="card-body">
+                                <p>
+                                    Each leaf of the plot below represents one hour of Reddit activity on June 1st, 2019 displayed in EST. Depending on which category you have selected, you can see how the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">number of comments</a>, the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(1)">average controversiality ratings</a>, and the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(2)">average scores of comments</a> fluctuate over one day.
+                                </p>
+                                <p>
+                                    The darker and longer the leaf, the more activity has occurred.
+                                    <br><br><b style="color: red">TODO: Change coloring, shift time to EST, and display timestamps like a clock</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo-aster">
+                            <div class ="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo-aster" aria-expanded="false" aria-controls="collapseTwo-aster">
+                                <h3 class="card-header-text">
+                                    What daily activity trends are apparent through a 24 snapshot?
+                                </h3>
+                                <i class="fa fa-hand-pointer-o card-icon"></i>
+                            </div>
+                        </div>
+                        <div id="collapseTwo-aster" class="collapse" aria-labelledby="headingTwo-aster" data-parent="#accordion-aster">
+                            <div class="card-body">
+                                <p>
+                                    <i>Find the following trends on the next page!</i>
+                                    <br>(Orange links will coordinate the view)
+                                </p>
+                                <br>
+                                <p>
+                                    The amount of comments peaks around the early to late afternoon in the United States (around <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0);">3 pm EST</a>). This trend suggests that a lot of Reddit users are active toward the end of the school day/workday.
+                                </p>
+                                <p>
+                                    Interestingly, we see that the highest score peaks in the early morning in the United States (around <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(2);">8 am EST</a>). This suggests that users may be more willing to upvote and interact with a comment at the beginning of the day.
+                                </p>
+                                <p>
+                                    Unlike the number of comments and the average score, the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(1)">controversiality</a> score does not fluctuate very much throughout the day. This highlights a <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('cont-radio-btn')">trend</a> we will see that few comments are deemed controversial.
+                                    <br><br><b style="color: red">TODO: Add function to highlight a certain time/leaf in the aster plot</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-
-            <div id="treemap-legend-div" style="float: right;">
-                <svg id="treemap-legend" width="400" height="40"></svg>
-            </div>
-
-            <div id="treemap"></div>
         </div>
-    </div>
-
-    <div class="section section-inset">
-        <h1 class="vis-title">The sentiment of top subreddits</h1>
-        <h2 class="vis-subtitle">Advance through a day to view how the sentiment of each subreddit changes.</h2>
-        <p class="vis-p">
-            As time reaches midday UTC (very early morning in the United States), the sentiment of the subreddits appears to become more negative. This occurs simultaneously with the peak amount of comments as displayed above. Since there are more comments, it makes sense that the sentiment might change because there is a greater total volume of comments being made.
-        </p>
-    </div>
-    <div class="section section-inset">
-        <div id="bubble-play-button">
-            <button id="play-button">Play</button>
-        </div>
-        <div id="bubble-cloud">
-        </div>
-    </div>
-
-    <div class="section section-inset">
-        <h1 class="vis-title">Impactful words</h1>
-        <h2 class="vis-subtitle">What are the most common words in each subreddit?</h2>
-        <p>
-            To find the most impactful and common words per subreddit, we first filtered out common English stop words such as "a" and "the".
-        </p>
-    </div>
-    <div class="section section-inset">
-        <div>
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="ranking-type" id="word-cloud-label">Select subreddit</label>
-                    <select id="select-box" onchange = "updateWordCloud(value)" class="form-control" id="ranking-type">
-                        <option value="AmItheAsshole">AmItheAsshole</option>
-                        <option value="AskOuija">AskOuija</option>
-                        <option value="AskReddit">AskReddit</option>
-                        <option value="aww">aww</option>
-                        <option value="dankmemes">dankmemes</option>
-                        <option value="freefolk">freefolk</option>
-                        <option value="funny">funny</option>
-                        <option value="gaming">gaming</option>
-                        <option value="gonewild">gonewild</option>
-                        <option value="leagueoflegends">leagueoflegends
-                        <option value="LiverpoolFC">LiverpoolFC</option>
-                        <option value="Market76">Market76</option>
-                        <option value="memes">memes</option>
-                        <option value="mildlyinteresting">mildlyinteresting</option>
-                        <option value="nba">nba</option>
-                        <option value="news">news</option>
-                        <option value="pics">pics</option>
-                        <option value="politics">politics</option>
-                        <option value="Showerthoughts">Showerthoughts</option>
-                        <option value="soccer">soccer</option>
-                        <option value="SquaredCircle">SquaredCircle</option>
-                        <option value="teenagers">teenagers</option>
-                        <option value="The_Donald">The_Donald</option>
-                        <option value="unpopularopinion">unpopularopinion</option>
-                        <option value="worldnews">worldnews</option>
+        <div class="section section-inset">
+            <div class="center-horizontal">
+                <div>
+                    <select id="aster-type" onchange="updatePlotType()">
+                        <option value="comments"># of comments</option>
+                        <option value="controversiality">Average Controversiality</option>
+                        <option value="score">Average Score</option>
                     </select>
                 </div>
-            </form>
-            <div class = "row">
-                <div class = "col-3" style = "padding-top: 150px; padding-bottom: 30px;">
-                    <p>By looking at a snapshot of words from each subreddit,
-                        the general feeling of the community can be perceived.
-                        Click on a word to learn more about its use.
-                    </p>
-                    <p id = "word-info" style = "color: #5296dd"></p>
+    <!--            <div id="asterplot"></div>-->
+                <div class="row">
+                    <div class="col-md-7" id="asterplot"></div>
+                    <div class="col-md-4" id="aster-table"></div>
                 </div>
-                <div class = "col-6" id="wordcloud"></div>
             </div>
         </div>
-    </div>
-    <div class="section section-inset">
-        <p class="vis-p">
-            Lorem ipsum blah blah, need to be filled with something insightful; I pulled up to the slide before what used to be here lol
-        </p>
-    </div>
 
+        <div class="section section-inset pp-scrollable">
+            <div class="center-vertical">
+                <h1 class="vis-title">The top subreddits</h1>
+                <br>
 
-    <div class="section section-inset">
-        <h1 id="footer-title">A 24 hour snapshot</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <p class="vis-p">
-                    By viewing a day of Reddit, we see how social activity fluctuates. People appear more active during the later hours of the night. In addition, the highest average scores occur during the early morning suggesting that people may be friendlier and more willing to up-vote a post earlier in the day. As the night progresses, we see the sentiment of comments become more negative. Overall, this shows how people function on a social network throughout one day.
-                </p>
+            <div id="accordion-treemap">
+                <div class="card">
+                    <div class="card-header" id="headingOne-treemap">
+                        <div class="mb-0" data-toggle="collapse" data-target="#collapseOne-treemap" aria-expanded="true" aria-controls="collapseOne-treemap">
+                            <h3 class="card-header-text">
+                                What is a subreddit?
+                            </h3>
+                            <i class="fa fa-hand-pointer-o card-icon"></i>
+                        </div>
+                    </div>
+                    <div id="collapseOne-treemap" class="collapse show" aria-labelledby="headingOne-treemap" data-parent="#accordion-treemap">
+                        <div class="card-body">
+                            <p>
+                                To create order on Reddit, posts are organized by subject. Each subreddit denotes a <b>user-created subject</b>.
+                            </p>
+                            <p>
+                                To access a subreddit, one can go to <i>r/subredditName</i> to view the organized board of posts.
+                            </p>
+                            <p>
+                                Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit.
+                            </p>
+                            <p>
+                                Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingTwo-treemap">
+                        <div class ="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo-treemap" aria-expanded="false" aria-controls="collapseTwo-treemap">
+                            <h3 class="card-header-text">
+                                What subreddit trends do we see in a 24 hour snapshot?
+                            </h3>
+                            <i class="fa fa-hand-pointer-o card-icon"></i>
+                        </div>
+                    </div>
+                    <div id="collapseTwo-treemap" class="collapse" aria-labelledby="headingTwo-treemap" data-parent="#accordion-treemap">
+                        <div class="card-body">
+                            <p>
+                                <i>Find the following trends on the next page!</i>
+                                <br>(Orange links will coordinate the view, blue links will take you to a different webpage).
+                            </p>
+                            <br>
+                            <p>
+                                The <a class="coordinated-word" href="#treemapVisPage" onclick="highlightTile(0)">most active subreddit</a> is <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a>.
+                            </p>
+                            <p>
+                                <a href="https://www.reddit.com/r/AskReddit/">r/freefolk</a> and <a href="https://www.reddit.com/r/AmItheAsshole/">r/AmItheAsshole</a> tie for the highest <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('avg-radio-btn'); highlightTile(7)">average scoring comment</a>.
+                            </p>
+                            <p>
+                                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> takes the cake again with the greatest <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('top-radio-btn'); highlightTile(0)">top scoring comment</a>.
+                            </p>
+                            <p>
+                                We see <a href="https://www.reddit.com/r/freefolk/">r/freefolk</a> again, this time with <a href="https://www.reddit.com/r/dankmemes/">r/dankmemes</a> which have the <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('low-radio-btn'); highlightTile(5)">lowest scoring comments</a>.
+                            </p>
+                            <p>
+                                We see that <a class="coordinated-word" href="#treemapVisPage" onclick="selectRadioBtn('cont-radio-btn')">few subreddits are controversial</a>. However, <a href="https://www.reddit.com/r/news/">r/news</a> is approximately <a class="coordinated-word" href="#treemapVisPage" onclick="highlightTile(16)">10% controversial</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
+
+<!--            <h2>What is a subreddit?</h2>-->
+<!--            <p>-->
+<!--                To create order on Reddit, posts are organized by subject. Each subreddit denotes a user-created subject. To access a subreddit, one can go to r/subredditName to view the organized board of posts. Within a subreddit, posts are displayed closer to the top if they have more up-votes. If a post receives enough up-votes, it will appear on the front, main page of all of Reddit. Each subreddit displays community details which show the number of members in the subreddit, the number of people currently online, the day the subreddit was created, and a summary of the subreddit.-->
+<!--            </p>-->
+<!--            <br>-->
+<!--            <h2>What are the most active subreddits in a 24 hour snapshot?</h2>-->
+<!--            <p class="vis-p">-->
+<!--                <a href="https://www.reddit.com/r/AskReddit/">r/AskReddit</a> is the most active subreddit. We see that not a lot of subreddits are controversial. However, r/news is approximately 10% controversial.-->
+<!--            </p>-->
+            </div>
+        </div>
+
+        <div class="section section-inset">
+            <div class="center-horizontal">
+                <p id="treemap-note"><b>*</b>Relative tile size corresponds to the amount of comments per subreddit.</p>
+                <div class="treemap-vis">
+                    <button class="treemap-btn btn" type="button" onclick="toTreemap()">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+
+                    <div class="pretty p-round p-fill p-jelly">
+                        <input id="avg-radio-btn" type="radio" value="avg-score" name="icon_solid" checked="checked" onclick="updateTreemapColor(this)">
+                        <div class="state p-primary">
+                            <label>Average score</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-round p-fill p-jelly">
+                        <input id="top-radio-btn" type="radio" value="top-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                        <div class="state p-primary">
+                            <label>Top score</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-round p-fill p-jelly">
+                        <input id="low-radio-btn" type="radio" value="low-score" name="icon_solid" onclick="updateTreemapColor(this)">
+                        <div class="state p-primary">
+                            <label>Low score</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-round p-fill p-jelly">
+                        <input id="cont-radio-btn" type="radio" value="controversiality" name="icon_solid" onclick="updateTreemapColor(this)">
+                        <div class="state p-primary">
+                            <label>Controversiality</label>
+                        </div>
+                    </div>
+
+                    <div id="treemap-legend-div" style="float: right;">
+                        <svg id="treemap-legend" width="400" height="40"></svg>
+                    </div>
+
+                    <div id="treemap"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-inset">
+            <div class="center-vertical">
+                <h1 class="vis-title">The sentiment of top subreddits</h1>
+                <br>
+                <h2>Advance through a day to view how the sentiment of each subreddit changes.</h2>
                 <p class="vis-p">
-                    Even just looking at a day in Reddit’s constant action gives us a window into the news, trends, and the general atmosphere of the web and the world: perhaps Reddit’s self-given title of “the front page of the Internet” holds more truth than we give it credit.
+                    As time reaches very early morning in the United States, the sentiment of the top subreddits becomes more positive. <a class="coordinated-word" href="#sentimentVisPage" onclick="">View this trend!</a> This occurs simultaneously with the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">peak amount of comments</a> as displayed in the aster plot above. Since there are more comments, it makes sense that the sentiment changes because there is a greater total volume of comments being created.
+                    <br><br><b style="color: red">TODO: Shift time to EST, add function that coordinates with word and displays vis at a certain time</b>
                 </p>
             </div>
         </div>
+        <div class="section section-inset">
+            <div class="center-horizontal">
+                <div id="bubble-play-button">
+                    <button id="play-button">Play</button> <i>*Size of bubble indicates number of comments per hour</i>
+                </div>
+                <div id="bubble-cloud">
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-inset">
+            <div class="center-vertical">
+            <h1 class="vis-title">Impactful words</h1>
+            <br>
+            <h2>What are the most common words in each subreddit?</h2>
+            <p>
+                To find the most impactful and common words per subreddit, we first filtered out common English stop words such as "a" and "the".
+            </p>
+            <p>
+                Select a subreddit below to view the corresponding most frequently used words. The color of the word dictates the word's sentiment.
+                <br><br><b style="color: red">TODO: Change coloring of words to show sentiment</b>
+            </p>
+            <p class="vis-p">
+                By looking at a snapshot of words from each subreddit, the general feeling of the community can be perceived.
+            </p>
+            </div>
+        </div>
+        <div class="section section-inset">
+            <div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="ranking-type" id="word-cloud-label">Select subreddit</label>
+                        <select id="select-box" onchange = "updateWordCloud(value)" class="form-control" id="ranking-type">
+                            <option value="AmItheAsshole">AmItheAsshole</option>
+                            <option value="AskOuija">AskOuija</option>
+                            <option value="AskReddit">AskReddit</option>
+                            <option value="aww">aww</option>
+                            <option value="dankmemes">dankmemes</option>
+                            <option value="freefolk">freefolk</option>
+                            <option value="funny">funny</option>
+                            <option value="gaming">gaming</option>
+                            <option value="gonewild">gonewild</option>
+                            <option value="leagueoflegends">leagueoflegends
+                            <option value="LiverpoolFC">LiverpoolFC</option>
+                            <option value="Market76">Market76</option>
+                            <option value="memes">memes</option>
+                            <option value="mildlyinteresting">mildlyinteresting</option>
+                            <option value="nba">nba</option>
+                            <option value="news">news</option>
+                            <option value="pics">pics</option>
+                            <option value="politics">politics</option>
+                            <option value="Showerthoughts">Showerthoughts</option>
+                            <option value="soccer">soccer</option>
+                            <option value="SquaredCircle">SquaredCircle</option>
+                            <option value="teenagers">teenagers</option>
+                            <option value="The_Donald">The_Donald</option>
+                            <option value="unpopularopinion">unpopularopinion</option>
+                            <option value="worldnews">worldnews</option>
+                        </select>
+                    </div>
+                </form>
+                <div class = "row">
+                    <div class = "col-3" style = "padding-top: 150px; padding-bottom: 30px;">
+                        <p>By looking at a snapshot of words from each subreddit,
+                            the general feeling of the community can be perceived.
+                            Click on a word to learn more about its use.
+                        </p>
+                        <p id = "word-info" style = "color: #5296dd"></p>
+                    </div>
+                    <div class = "col-6" id="wordcloud"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section section-inset">
+            <div class="center-vertical">
+                <h1 class="vis-title">A 24 hour snapshot</h1>
+                <br>
+                <p>
+                    By viewing a day of Reddit, we see how social activity fluctuates. People appear more active during the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">afternoon</a>. In addition, the highest average scores occur during the early morning suggesting that people may be friendlier and more willing to up-vote a post earlier in the day.
+                </p>
+                <p>
+                    As the night progresses, we see the sentiment of comments become <a class="coordinated-word" href="#sentimentVisPage" onclick="">more negative</a>. Overall, this shows how people function on a social network throughout one day.
+                </p>
+                <br>
+                <p>
+                    Even just looking at one day in Reddit’s constant action gives us a window into the news, trends, and the general atmosphere of the web and the world: perhaps Reddit’s self-given title of <i>the front page of the Internet</i> holds more truth than we give it credit.
+                </p>
+            </div>
+        </div>
+
     </div>
 
-</div>
 
-
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.pagepiling.min.js"></script>
-<script src="js/d3.min.js"></script>
-<script src="js/d3-tip.js"></script>
-<script src="js/d3-scale-chromatic.js"></script>
-<script src="js/d3-color.v1.min.js"></script>
-<script src="js/d3-interpolate.v1.min.js"></script>
-<script src="js/d3.layout.cloud.js"></script>
-<!--Library for legend-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
-<script src="js/colorbrewer.js"></script>
-<script src="js/lodash.min.js"></script>
-<script src="js/sentiment.js"></script>
-<script src="js/treemap.js"></script>
-<script src="js/asterplot.js"></script>
-<script src="js/wordcloud.js"></script>
-<script src="js/cover.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.pagepiling.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/d3-tip.js"></script>
+    <script src="js/d3-scale-chromatic.js"></script>
+    <script src="js/d3-color.v1.min.js"></script>
+    <script src="js/d3-interpolate.v1.min.js"></script>
+    <script src="js/d3.layout.cloud.js"></script>
+    <!--Library for legend-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+    <script src="js/colorbrewer.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <script src="js/cover.js"></script>
+    <script src="js/sentiment.js"></script>
+    <script src="js/treemap.js"></script>
+    <script src="js/asterplot.js"></script>
+    <script src="js/wordcloud.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
