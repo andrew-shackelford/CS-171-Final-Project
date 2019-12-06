@@ -160,7 +160,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
 
-    // appending hour markers
+    // appending hour markers to plot
     vis.svg.append("text")
         .attr("x", "28")
         .attr("y", "-260")
@@ -177,7 +177,7 @@ AsterPlot.prototype.updatePlotType = function() {
 
     vis.svg.append("text")
         .attr("x", "275")
-        .attr("y", "35")
+        .attr("y", "30")
         .attr("text-anchor", "middle")
         .attr("class", "hourText")
         .text("6 am");

@@ -275,6 +275,7 @@ p {
 
 .solidArc:hover {
 	opacity: 50%;
+	cursor: pointer;
 }
 
 .solidArc {
@@ -282,10 +283,6 @@ p {
 	-o-transition: all 0.2s;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
-}
-
-#asterplot {
-	cursor: pointer;
 }
 
 #aster-table {
