@@ -5,21 +5,29 @@ AsterPlot = function(_parentElement, _data) {
     this.data = _data;
 
     this.initVis();
-}
+};
 
 AsterPlot.prototype.initVis = function() {
     var vis = this;
 
+    vis.parser = d3.timeParse("%H");
+    vis.formatter = d3.timeFormat("%I %p");
+
+    vis.data.forEach(function(d) { // convert to EDT
+        d.hour = +d.hour < 4 ? +d.hour + 20 : +d.hour - 4;
+        d.prettyHour = vis.formatter(vis.parser(d.hour)).replace(/^0+/, '');
+    });
+
     vis.width = 600;
     vis.height = 600;
     vis.radius = Math.min(vis.width, vis.height) / 2 - 50;
-    vis.innerRadius = 0;//0.3 * vis.radius;
+    vis.innerRadius = 0;
 
     vis.tip = d3.tip()
         .attr('class', 'd3-tip-padding')
         .offset([0, 0])
         .html(function(d, i) {
-            return "<span style='color:#72ffff'>" + i + ":00 </span>" +
+            return "<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
                 "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
                 "<br>" + "Avg. score: " + d.data.score.toFixed(2);
@@ -57,8 +65,6 @@ AsterPlot.prototype.initVis = function() {
         hour.sort(vis.compareTotal)
     });
 
-    console.log(grouped)
-
     Object.keys(grouped).forEach(function(key, i) {
         var total = 0,
             controversiality = 0,
@@ -81,6 +87,7 @@ AsterPlot.prototype.initVis = function() {
         var hourInt = parseInt(key);
         vis.byHour.push({
             "hour" : hourInt,
+            "prettyHour" : vis.formatter(vis.parser(hourInt)).replace(/^0+/, ''),
             "top5" : top5,
             "total" : total,
             "controversiality" : controversiality,
@@ -90,12 +97,10 @@ AsterPlot.prototype.initVis = function() {
 
     vis.byHour.sort(vis.compareHour);
 
-    console.log(vis.byHour)
-
     vis.updatePlotType();
 
     d3.select("#asterplot-pie-0").dispatch('click');
-}
+};
 
 AsterPlot.prototype.updatePlotType = function() {
     var vis = this;
@@ -154,23 +159,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
 
-    /*
-    var centerText = vis.svg.append("svg:text")
-        .attr("class", "center-text")
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle") // text-align: right
-        .text(function(d){
-            if (asterType === "controversiality") {
-                return "Avg. Controversiality";
-            }
-            if (asterType === "comments") {
-                return "# of Comments";
-            }
-            if (asterType === "score") {
-                return "Avg. Score";
-            }
-        });*/
-}
+};
 
 AsterPlot.prototype.tableCreate = function(d){
     var tableHolder =  document.getElementById("aster-table");
@@ -181,7 +170,7 @@ AsterPlot.prototype.tableCreate = function(d){
     // tbl.style.border = '1px solid black';
 
     var tableTitle = document.createElement('h3');
-    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["hour"]) + ":00"))
+    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["prettyHour"])))
 
     var thr = tbl.insertRow();
 
@@ -202,7 +191,7 @@ AsterPlot.prototype.tableCreate = function(d){
     }
     tableHolder.appendChild(tableTitle);
     tableHolder.appendChild(tbl);
-}
+};
 
 //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
 AsterPlot.prototype.compareTotal = function(a, b, cat) {
@@ -216,7 +205,7 @@ AsterPlot.prototype.compareTotal = function(a, b, cat) {
         comparison = 1;
     }
     return comparison;
-}
+};
 
 
 AsterPlot.prototype.compareHour = function(a, b) {
@@ -230,7 +219,7 @@ AsterPlot.prototype.compareHour = function(a, b) {
         comparison = 1;
     }
     return comparison;
-}
+};
 
 
 AsterPlot.prototype.changeSelectBox = function (id) {
@@ -239,4 +228,12 @@ AsterPlot.prototype.changeSelectBox = function (id) {
     document.getElementById("aster-type").selectedIndex = id;
 
     vis.updatePlotType();
+};
+
+AsterPlot.prototype.showTrend = function() {
+    var vis = this;
+
+    vis.changeSelectBox(2);
+
+    d3.select("#asterplot-pie-9").dispatch('click');
 }
