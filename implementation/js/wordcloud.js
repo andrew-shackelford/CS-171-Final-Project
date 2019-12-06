@@ -76,7 +76,7 @@ WordCloud.prototype.updateVis = function(key) {
             .remove();
 
         cloud.enter().append("text")
-            .on("click", function(d) {
+            .on("mouseover", function(d) {
                 document.getElementById("word-info").innerHTML =
                     "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
             })

@@ -194,7 +194,7 @@
             </div>
         </div>
 
-        <div class="section section-inset">
+        <div class="section section-inset pp-scrollable">
             <div class="center-vertical">
                 <h1 class="vis-title">The top subreddits</h1>
                 <br>
@@ -342,6 +342,7 @@
         </div>
 
         <div class="section section-inset">
+            <div class="center-vertical">
             <h1 class="vis-title">Impactful words</h1>
             <br>
             <h2>What are the most common words in each subreddit?</h2>
@@ -355,42 +356,51 @@
             <p class="vis-p">
                 By looking at a snapshot of words from each subreddit, the general feeling of the community can be perceived.
             </p>
+            </div>
         </div>
         <div class="section section-inset">
-            <div class="center-horizontal">
+            <div>
                 <form class="form-inline">
                     <div class="form-group">
                         <label for="ranking-type" id="word-cloud-label">Select subreddit</label>
                         <select id="select-box" onchange = "updateWordCloud(value)" class="form-control" id="ranking-type">
-                            <option value="AskReddit">AskReddit</option>
-                            <option value="teenagers">teenagers</option>
-                            <option value="soccer">soccer</option>
-                            <option value="memes">memes</option>
-                            <option value="politics">politics</option>
-                            <option value="dankmemes">dankmemes</option>
-                            <option value="mildlyinteresting">mildlyinteresting</option>
                             <option value="AmItheAsshole">AmItheAsshole</option>
+                            <option value="AskOuija">AskOuija</option>
+                            <option value="AskReddit">AskReddit</option>
+                            <option value="aww">aww</option>
+                            <option value="dankmemes">dankmemes</option>
                             <option value="freefolk">freefolk</option>
                             <option value="funny">funny</option>
-                            <option value="unpopularopinion">unpopularopinion</option>
-                            <option value="The_Donald">The_Donald</option>
-                            <option value="pics">pics</option>
-                            <option value="nba">nba</option>
-                            <option value="gonewild">gonewild</option>
-                            <option value="AskOuija">AskOuija</option>
-                            <option value="news">news</option>
-                            <option value="SquaredCircle">SquaredCircle</option>
-                            <option value="LiverpoolFC">LiverpoolFC</option>
-                            <option value="Showerthoughts">Showerthoughts</option>
-                            <option value="worldnews">worldnews</option>
-                            <option value="Market76">Market76</option>
                             <option value="gaming">gaming</option>
-                            <option value="aww">aww</option>
-                            <option value="leagueoflegends">leagueoflegends</option>
+                            <option value="gonewild">gonewild</option>
+                            <option value="leagueoflegends">leagueoflegends
+                            <option value="LiverpoolFC">LiverpoolFC</option>
+                            <option value="Market76">Market76</option>
+                            <option value="memes">memes</option>
+                            <option value="mildlyinteresting">mildlyinteresting</option>
+                            <option value="nba">nba</option>
+                            <option value="news">news</option>
+                            <option value="pics">pics</option>
+                            <option value="politics">politics</option>
+                            <option value="Showerthoughts">Showerthoughts</option>
+                            <option value="soccer">soccer</option>
+                            <option value="SquaredCircle">SquaredCircle</option>
+                            <option value="teenagers">teenagers</option>
+                            <option value="The_Donald">The_Donald</option>
+                            <option value="unpopularopinion">unpopularopinion</option>
+                            <option value="worldnews">worldnews</option>
                         </select>
                     </div>
                 </form>
-                <div id="wordcloud">
+                <div class = "row">
+                    <div class = "col-3" style = "padding-top: 150px; padding-bottom: 30px;">
+                        <p>By looking at a snapshot of words from each subreddit,
+                            the general feeling of the community can be perceived.
+                            Click on a word to learn more about its use.
+                        </p>
+                        <p id = "word-info" style = "color: #5296dd"></p>
+                    </div>
+                    <div class = "col-6" id="wordcloud"></div>
                 </div>
             </div>
         </div>
