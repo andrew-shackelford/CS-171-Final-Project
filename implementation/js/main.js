@@ -57,6 +57,14 @@ function updateWordCloud(value) {
     wordCloud.updateVis(value);
 }
 
+function showSentimentTrend() {
+    sentimentBubbleCloud.showTrend();
+}
+
+function showAsterTrend() {
+    asterPlot.showTrend();
+}
+
 $(document).ready(function() {
     $('#pagepiling').pagepiling({
         anchors: ['frontPage', 'infoPage', 'snapshotPage', 'commentPage', 'asterDescriptionPage', 'asterVisPage',
