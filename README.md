@@ -1,6 +1,6 @@
 # CS 171 Final Project
 
-## Hosted at [cs-171.herokuapp.com](cs-171.herokuapp.com)
+## Hosted at cs-171.herokuapp.com
 
 ### Andrew Shackelford
 ### Hanna Kim
