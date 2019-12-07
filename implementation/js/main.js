@@ -24,7 +24,7 @@ d3.json("data/hourly_stats.json", function(error, jsonData) {
     }
 });
 
-d3.json("data/word_counts.json", function(error, jsonData) {
+d3.json("data/word_counts_sentiment.json", function(error, jsonData) {
     if (!error) {
         wordCloud = new WordCloud("#wordcloud", jsonData);
     }

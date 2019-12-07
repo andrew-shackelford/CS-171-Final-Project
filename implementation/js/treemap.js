@@ -87,6 +87,10 @@ TreeMap.prototype.initVis = function() {
     vis.newsElement = [null, null, null];
     vis.freefolkElement = [null, null, null];
 
+    vis.labelColor = ["white", "white", "white", "white", "white", "white", "white", "white",
+        "white", "white", "white", "white", "white", "white", "white", "white", "white", "white",
+        "white", "white", "white", "white", "white", "white", "white"];
+
     vis.treemapBtn = d3.select(".treemap-btn").style("visibility", "hidden");
 
 
@@ -220,6 +224,15 @@ TreeMap.prototype.createTreeLayout = function() {
 TreeMap.prototype.updateVis = function() {
     var vis = this;
 
+    // Extract RGB from string: https://stackoverflow.com/questions/34980574/how-to-extract-color-values-from-rgb-string-in-javascript/34980657
+    function getBlueGreen(str){
+        var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
+        return match ? {
+            blue: match[3],
+            green: match[2]
+        } : null;
+    }
+
     // Draw treemap to svg
     var rects = vis.svg.selectAll(".subreddit-rect")
         .data(vis.root.leaves());
@@ -274,28 +287,46 @@ TreeMap.prototype.updateVis = function() {
                 return 1
             }
         })
-        .attr("fill", function (d) {
+        .attr("fill", function (d, i) {
+            if (i == 0) {
+                vis.labelColor = ["white", "white", "white", "white", "white", "white", "white", "white",
+                    "white", "white", "white", "white", "white", "white", "white", "white", "white", "white",
+                    "white", "white", "white", "white", "white", "white", "white"];
+            }
+
             if (vis.colorValue === "avg-score") {
                 vis.colorScale.domain(vis.extentAvgScore);
                 vis.colorScale.interpolator(d3.interpolateBlues);
                 vis.legendLinear.labelFormat(d3.format(".2"));
 
                 // return d3.interpolateBlues(vis.colorScale(d.data.avg_score))
-                return vis.colorScale(d.data.avg_score)
+                vis.rgb = vis.colorScale(d.data.avg_score)
+                if (getBlueGreen(vis.rgb).blue > 230) {
+                    vis.labelColor[i] = "black"
+                }
+                return vis.rgb
             } else if (vis.colorValue === "top-score") {
                 vis.colorScale.domain(vis.extentTopScore);
                 vis.colorScale.interpolator(d3.interpolateBlues);
                 vis.legendLinear.labelFormat(d3.format(",.4r"));
 
                 // return d3.interpolateBlues(vis.colorScale(d.data.top_score))
-                return vis.colorScale(d.data.top_score)
+                vis.rgb = vis.colorScale(d.data.top_score)
+                if (getBlueGreen(vis.rgb).blue > 230) {
+                    vis.labelColor[i] = "black"
+                }
+                return vis.rgb
             } else if (vis.colorValue === "low-score") {
                 vis.colorScale.domain(vis.extentLowScore);
                 vis.colorScale.interpolator(d3.interpolateBlues);
                 vis.legendLinear.labelFormat(d3.format(",.3r"));
 
                 // return d3.interpolateBlues(vis.colorScale(d.data.low_score))
-                return vis.colorScale(d.data.low_score)
+                vis.rgb = vis.colorScale(d.data.low_score)
+                if (getBlueGreen(vis.rgb).blue > 230) {
+                    vis.labelColor[i] = "black"
+                }
+                return vis.rgb
             } else {
                 vis.colorScale.domain(vis.extentCont);
                 vis.colorScale.interpolator(d3.interpolateRdYlGn);
@@ -307,7 +338,11 @@ TreeMap.prototype.updateVis = function() {
                 vis.legendLinear.labelFormat(d3.format(".0%"));
 
                 // return d3.interpolateRdYlGn(0.9 - vis.colorScale(d.data.percent_cont))
-                return vis.colorScale(d.data.percent_cont)
+                vis.rgb = vis.colorScale(d.data.percent_cont)
+                if (getBlueGreen(vis.rgb).green > 230) {
+                    vis.labelColor[i] = "black"
+                }
+                return vis.rgb
             }
         })
         .attr("opacity", 0.85)
@@ -372,7 +407,9 @@ TreeMap.prototype.updateVis = function() {
             }
         })
         .attr("font-size", "11px")
-        .attr("fill", "white")
+        .attr("fill", function (d, i) {
+            return vis.labelColor[i];
+        })
         .attr("transform", function(d) {
             if (vis.currTree === "treemapSlice") {
                 return "translate(" + (-vis.margin.left) + ", 0)"
