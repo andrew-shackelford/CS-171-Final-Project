@@ -62,8 +62,8 @@ function showSentimentTrend() {
     sentimentBubbleCloud.showTrend();
 }
 
-function showAsterTrend() {
-    asterPlot.showTrend();
+function showAsterTrend(idx) {
+    asterPlot.showTrend(idx);
 }
 
 $(document).ready(function() {
