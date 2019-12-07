@@ -398,3 +398,13 @@ td {
 	border-radius: 15px;
 	pointer-events: none;
 }
+
+/* team images */
+
+.team-img {
+	width : 150px;
+}
+
+.img-div {
+	text-align: center;
+}
