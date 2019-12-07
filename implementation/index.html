@@ -134,11 +134,11 @@
                         <div id="collapseOne-aster" class="collapse show" aria-labelledby="headingOne-aster" data-parent="#accordion-aster">
                             <div class="card-body">
                                 <p>
-                                    Each leaf of the plot below represents one hour of Reddit activity on June 1st, 2019 displayed in EST. Depending on which category you have selected, you can see how the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">number of comments</a>, the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(1)">average controversiality ratings</a>, and the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(2)">average scores of comments</a> fluctuate over one day.
+                                    Each leaf of the plot below represents one hour of Reddit activity on June 1st, 2019 displayed in EDT. Depending on which category you have selected, you can see how the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">number of comments</a>, the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(1)">average controversiality ratings</a>, and the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(2)">average scores of comments</a> fluctuate over one day.
                                 </p>
                                 <p>
                                     The darker and longer the leaf, the more activity has occurred.
-                                    <br><br><b style="color: red">TODO: Change coloring, shift time to EST, and display timestamps like a clock</b>
+                                    <br><br><b style="color: red">TODO: Change coloring, and display timestamps like a clock</b>
                                 </p>
                             </div>
                         </div>
@@ -181,14 +181,15 @@
             <div class="center-horizontal">
                 <div>
                     <select id="aster-type" onchange="updatePlotType()">
-                        <option value="comments"># of comments</option>
+                        <option value="total"># of comments</option>
                         <option value="controversiality">Average Controversiality</option>
                         <option value="score">Average Score</option>
                     </select>
                 </div>
     <!--            <div id="asterplot"></div>-->
                 <div class="row">
-                    <div class="col-md-7" id="asterplot"></div>
+                    <div class="col-md-7" id="asterplot">
+                    </div>
                     <div class="col-md-4" id="aster-table"></div>
                 </div>
             </div>
@@ -326,8 +327,9 @@
                 <br>
                 <h2>Advance through a day to view how the sentiment of each subreddit changes.</h2>
                 <p class="vis-p">
-                    As time reaches very early morning in the United States, the sentiment of the top subreddits becomes more positive. <a class="coordinated-word" href="#sentimentVisPage" onclick="">View this trend!</a> This occurs simultaneously with the <a class="coordinated-word" href="#asterVisPage" onclick="changeSelectBox(0)">peak amount of comments</a> as displayed in the aster plot above. Since there are more comments, it makes sense that the sentiment changes because there is a greater total volume of comments being created.
-                    <br><br><b style="color: red">TODO: Shift time to EST, add function that coordinates with word and displays vis at a certain time</b>
+                    As time reaches very early morning in the United States, the sentiment of the top subreddits becomes more positive. <a class="coordinated-word" href="#sentimentVisPage" onclick="showSentimentTrend()"View this trend>View this trend!</a> This occurs simultaneously with the <a class="coordinated-word" href="#asterVisPage" onclick="showAsterTrend()">increase in average comment score</a> as displayed in the aster plot above. Since the average score of a comment increases, it makes sense that the sentiment changes because the average comment is more popular, and therefore likely to be more positive.
+                <br><br>
+                    In the visualization below, the "average comment polarity" represents the sentiment of the average comment, where -1 is the most negative and 1 is the most positive.
                 </p>
             </div>
         </div>

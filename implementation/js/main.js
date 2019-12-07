@@ -5,6 +5,7 @@ var treeMap;
 var asterPlot;
 var wordCloud;
 
+
 d3.json("data/sentiment.json", function(error, jsonData) {
     if (!error) {
         sentimentBubbleCloud = new SentimentBubbleCloud("#bubble-cloud", jsonData);
@@ -55,6 +56,14 @@ function changeSelectBox(id) {
 
 function updateWordCloud(value) {
     wordCloud.updateVis(value);
+}
+
+function showSentimentTrend() {
+    sentimentBubbleCloud.showTrend();
+}
+
+function showAsterTrend() {
+    asterPlot.showTrend();
 }
 
 $(document).ready(function() {

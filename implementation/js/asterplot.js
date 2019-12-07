@@ -5,25 +5,27 @@ AsterPlot = function(_parentElement, _data) {
     this.data = _data;
 
     this.initVis();
-}
+};
 
 AsterPlot.prototype.initVis = function() {
     var vis = this;
 
+    vis.parser = d3.timeParse("%H");
+    vis.formatter = d3.timeFormat("%I %p");
+
+    vis.data.forEach(function(d) { // convert to EDT
+        d.hour = +d.hour < 4 ? +d.hour + 20 : +d.hour - 4;
+        d.prettyHour = vis.formatter(vis.parser(d.hour)).replace(/^0+/, '');
+    });
+
     vis.width = 600;
     vis.height = 600;
     vis.radius = Math.min(vis.width, vis.height) / 2 - 50;
-    vis.innerRadius = 0;//0.3 * vis.radius;
+    vis.innerRadius = 0;
 
-    vis.tip = d3.tip()
-        .attr('class', 'd3-tip-padding')
-        .offset([0, 0])
-        .html(function(d, i) {
-            return "<span style='color:#72ffff'>" + i + ":00 </span>" +
-                "<br>" + (d.data.total).toLocaleString() + " comments" +
-                "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
-                "<br>" + "Avg. score: " + d.data.score.toFixed(2);
-    });
+    vis.tip = d3.select("#asterplot").append("div")
+        .attr("class", "d3-tip-aster")
+        .style("display", "none");
 
     vis.pie = d3.pie()
         .sort(null)
@@ -42,7 +44,7 @@ AsterPlot.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.width / 2 + "," + vis.height / 2 + ")");
 
-    vis.svg.call(vis.tip);
+    vis.colorScale = d3.scaleSequential(d3.interpolateBlues);
 
     // aggregate all data associated with an hour in the day
     vis.byHour = [];
@@ -54,8 +56,6 @@ AsterPlot.prototype.initVis = function() {
     (Object.values(grouped)).forEach(function(hour) {
         hour.sort(vis.compareTotal)
     });
-
-    console.log(grouped)
 
     Object.keys(grouped).forEach(function(key, i) {
         var total = 0,
@@ -79,34 +79,37 @@ AsterPlot.prototype.initVis = function() {
         var hourInt = parseInt(key);
         vis.byHour.push({
             "hour" : hourInt,
+            "prettyHour" : vis.formatter(vis.parser(hourInt)).replace(/^0+/, ''),
             "top5" : top5,
             "total" : total,
             "controversiality" : controversiality,
             "score" : score,
-            // temporary color scheme (built-in)
-            "color" : d3.interpolateBlues(hourInt/24)
         });
     });
 
     vis.byHour.sort(vis.compareHour);
 
-    console.log(vis.byHour)
-
     vis.updatePlotType();
 
     d3.select("#asterplot-pie-0").dispatch('click');
-}
+};
 
 AsterPlot.prototype.updatePlotType = function() {
     var vis = this;
 
     var asterType = d3.select("#aster-type").node().value;
 
+    var extent = d3.extent(vis.byHour, function (d) {
+        return d[asterType.toString()];
+    });
+
+    vis.colorScale.domain(extent);
+
     vis.arc.outerRadius(function (d) {
         if (asterType === "controversiality") {
             return (vis.radius - vis.innerRadius) * (d.data.controversiality * 1.21) + vis.innerRadius;
         }
-        if (asterType === "comments") {
+        if (asterType === "total") {
             return (vis.radius - vis.innerRadius) * (d.data.total / 56000) + vis.innerRadius;
         }
         if (asterType === "score") {
@@ -117,6 +120,7 @@ AsterPlot.prototype.updatePlotType = function() {
     vis.svg.selectAll('.solidArc')
         .data([])
         .exit().remove();
+
     vis.svg.selectAll('.center-text')
         .text("")
         .exit().remove();
@@ -125,7 +129,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .data(vis.pie(vis.byHour))
         .enter().append("path")
         .attr("fill", function(d) {
-            return d.data.color;
+                return vis.colorScale(d.data[asterType.toString()])
         })
         .attr("class", "solidArc")
         .attr("stroke", "black")
@@ -133,13 +137,24 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("id", function(d) {
             return "asterplot-pie-" + d.data["hour"];
         })
-        .on('mouseover', vis.tip.show)
-        .on('mouseout', vis.tip.hide)
+        .on('mouseover', function(d) {
+            vis.tip.style("display", "inline");
+            vis.tip.html("<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
+                "<br>" + (d.data.total).toLocaleString() + " comments" +
+                "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
+                "<br>" + "Avg. score: " + d.data.score.toFixed(2));
+        })
+        .on('mousemove', function (d) {
+            vis.tip
+                .style("left", (d3.event.x - 145) + "px")
+                .style("top", (d3.event.y - 182) + "px");
+        })
+        .on('mouseout', function() { vis.tip.style("display", "none"); })
         .on("click", function(d){
-            console.log(d);
             vis.tableCreate(d)
         });
 
+    // do not remove code, even though var outerPath is not being used
     var outerPath = vis.svg.selectAll(".outlineArc")
         .data(vis.pie(vis.byHour))
         .enter().append("path")
@@ -148,23 +163,37 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
 
-    /*
-    var centerText = vis.svg.append("svg:text")
-        .attr("class", "center-text")
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle") // text-align: right
-        .text(function(d){
-            if (asterType === "controversiality") {
-                return "Avg. Controversiality";
-            }
-            if (asterType === "comments") {
-                return "# of Comments";
-            }
-            if (asterType === "score") {
-                return "Avg. Score";
-            }
-        });*/
-}
+    // appending hour markers to plot
+    vis.svg.append("text")
+        .attr("x", "0")
+        .attr("y", "-260")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 AM");
+
+    vis.svg.append("text")
+        .attr("x", "0")
+        .attr("y", "270")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 PM");
+
+    vis.svg.append("text")
+        .attr("x", "275")
+        .attr("y", "30")
+        .attr("y", "5")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 AM");
+
+    vis.svg.append("text")
+        .attr("x", "-275")
+        .attr("y", "5")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 PM");
+
+};
 
 AsterPlot.prototype.tableCreate = function(d){
     var tableHolder =  document.getElementById("aster-table");
@@ -172,10 +201,9 @@ AsterPlot.prototype.tableCreate = function(d){
     var tbl  = document.createElement('table');
     tbl.className = "table table-bordered";
     tbl.style.width  = '100px';
-    // tbl.style.border = '1px solid black';
 
     var tableTitle = document.createElement('h3');
-    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["hour"]) + ":00"))
+    tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["prettyHour"])))
 
     var thr = tbl.insertRow();
 
@@ -196,7 +224,7 @@ AsterPlot.prototype.tableCreate = function(d){
     }
     tableHolder.appendChild(tableTitle);
     tableHolder.appendChild(tbl);
-}
+};
 
 //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
 AsterPlot.prototype.compareTotal = function(a, b, cat) {
@@ -210,7 +238,7 @@ AsterPlot.prototype.compareTotal = function(a, b, cat) {
         comparison = 1;
     }
     return comparison;
-}
+};
 
 
 AsterPlot.prototype.compareHour = function(a, b) {
@@ -224,7 +252,7 @@ AsterPlot.prototype.compareHour = function(a, b) {
         comparison = 1;
     }
     return comparison;
-}
+};
 
 
 AsterPlot.prototype.changeSelectBox = function (id) {
@@ -233,4 +261,12 @@ AsterPlot.prototype.changeSelectBox = function (id) {
     document.getElementById("aster-type").selectedIndex = id;
 
     vis.updatePlotType();
+};
+
+AsterPlot.prototype.showTrend = function() {
+    var vis = this;
+
+    vis.changeSelectBox(2);
+
+    d3.select("#asterplot-pie-9").dispatch('click');
 }
