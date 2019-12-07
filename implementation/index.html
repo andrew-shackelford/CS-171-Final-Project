@@ -351,8 +351,7 @@
                 To find the most impactful and common words per subreddit, we first filtered out common English stop words such as "a" and "the".
             </p>
             <p>
-                Select a subreddit below to view the corresponding most frequently used words. The color of the word dictates the word's sentiment.
-                <br><br><b style="color: red">TODO: Change coloring of words to show sentiment</b>
+                Select a subreddit below to view the corresponding most frequently used words. The color of the word dictates the average sentiment of comments in that subreddit that contain that word.
             </p>
             <p class="vis-p">
                 By looking at a snapshot of words from each subreddit, the general feeling of the community can be perceived.
@@ -397,7 +396,7 @@
                     <div class = "col-3" style = "padding-top: 150px; padding-bottom: 30px;">
                         <p>By looking at a snapshot of words from each subreddit,
                             the general feeling of the community can be perceived.
-                            Click on a word to learn more about its use.
+                            Hover over a word to learn more about its use.
                         </p>
                         <p id = "word-info" style = "color: #5296dd"></p>
                     </div>
@@ -425,23 +424,28 @@
 
         <div class="section section-inset">
             <div class="center-horizontal center-vertical">
-                <h1>Meet the Team</h1>
+                <h1 class="vis-title">Meet the Team</h1>
+                <br><br><br>
                 <div class = "row">
-                    <div class = "col-2 img-div">
-                        <img class="team-img" alt="Hanna Kim" src="img/hanna.jpg">
+                    <div class = "col-3 img-div">
+                        <img class="team-img" alt="Hanna Kim" src="img/hanna.jpg"> <br>
                         Hanna Kim
+                        <br><i>Junior, Dunster House</i>
                     </div>
-                    <div class = "col-2 img-div">
-                        <img class="team-img" alt="Jennifer Lee" src="img/jen.jpg">
+                    <div class = "col-3 img-div">
+                        <img class="team-img" alt="Jennifer Lee" src="img/jen.jpg"> <br>
                         Jennifer Lee
+                        <br><i>Senior, Leverett House</i>
                     </div>
-                    <div class = "col-2 img-div">
-                        <img class="team-img" alt="Sarah Lucioni" src="img/sarah.jpg">
+                    <div class = "col-3 img-div">
+                        <img class="team-img" alt="Sarah Lucioni" src="img/sarah.jpg"> <br>
                         Sarah Lucioni
+                        <br><i>Junior, Pforzheimer House</i>
                     </div>
-                    <div class = "col-2 img-div">
-                        <img class="team-img" alt="Andrew Shackelford" src="img/andrew.jpg">
+                    <div class = "col-3 img-div">
+                        <img class="team-img" alt="Andrew Shackelford" src="img/andrew.jpg"> <br>
                         Andrew Shackelford
+                        <br><i>Senior, Dunster House</i>
                     </div>
                 </div>
             </div>
@@ -452,7 +456,6 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/queue.min.js"></script>
     <script src="js/jquery.pagepiling.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-tip.js"></script>

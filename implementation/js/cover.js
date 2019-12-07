@@ -26,7 +26,6 @@ d3.json("data/top25Stats.json", function(error, jsonData){
         var xpos = 1; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
         var ypos = 1;
         var dim = svg_width/16;
-        console.log(commentsData[0].top_comment);
 
         var counter = 0;
 
@@ -55,8 +54,6 @@ d3.json("data/top25Stats.json", function(error, jsonData){
                 counter = 0;
             }
         }
-
-        console.log(data[0]);
 
         return data;
     }
