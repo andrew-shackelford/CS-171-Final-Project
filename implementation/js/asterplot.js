@@ -137,7 +137,14 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("id", function(d) {
             return "asterplot-pie-" + d.data["hour"];
         })
-        .on('mouseover', function(d) {
+        .style('opacity', 0);
+
+    vis.path.transition()
+        .duration(300)
+        .delay(function(d,i){ return i * 25; })
+        .style('opacity', 1);
+
+    vis.path.on('mouseover', function(d) {
             vis.tip.style("display", "inline");
             vis.tip.html("<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
