@@ -1,6 +1,6 @@
 # CS 171 Final Project
 
-### Hanna Kim, Jennifer Lee, Sarah Lucioni, Andrew Shackelford
+### Hanna Kim,  Jennifer Lee,  Sarah Lucioni,  Andrew Shackelford
 
 ## Abstract
 
@@ -46,7 +46,7 @@ Finally, the `js` folder contains the most of our work. `bootstrap.min`, `colorb
     - Play the visualization to see how the sentiment of subreddits fluctuates throughout a day or select a certain hour to see a static representation.
     - The position left to right as well as the color (light to dark) encodes the subreddit's sentiment on a negative to positive scale. The size of the bubbles indicates the number of comments at the selected hour.
     - Tooltips display more numerical information.
-    
+
   - **Word Cloud**
     - Select one of the top 25 subreddits to view the most commonly used words.
     - Hover over a word to view the amount of times it appeared in the selected subreddit.
