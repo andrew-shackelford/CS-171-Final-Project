@@ -277,13 +277,13 @@ AsterPlot.prototype.showTrend = function(idx) {
         vis.changeSelectBox(0);
 
         d3.select("#asterplot-pie-16")
-            .attr("stroke", "orange")
+            .attr("stroke", "#ff6314")
             .attr("stroke-width", "5")
     } else if (idx == 2) {
         vis.changeSelectBox(2);
 
         d3.select("#asterplot-pie-9")
-            .attr("stroke", "orange")
+            .attr("stroke", "#ff6314")
             .attr("stroke-width", "5")
     }
 

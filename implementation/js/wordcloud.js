@@ -16,7 +16,11 @@ WordCloud.prototype.initVis = function() {
         .attr("width", vis.width + vis.margin.left + vis.margin.right)
         .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
         .append("g")
-        .attr("transform", "translate(350,350)");
+        .attr("transform", "translate(400,350)");
+
+    vis.svg2 = d3.select("#wordcloud-scale").append("svg")
+        .attr("width", 170)
+        .attr("height", 700);
 
     vis.fill = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -32,8 +36,9 @@ WordCloud.prototype.initVis = function() {
 
 WordCloud.prototype.updateVis = function(key) {
     var vis = this;
-
     var filteredData = this.data[key];
+
+    /* Scales */
 
     vis.fill2.domain(d3.extent(filteredData, function(d){
         return d.sentiment;
@@ -43,6 +48,22 @@ WordCloud.prototype.updateVis = function(key) {
      return d.value;
     })]);
 
+    /* Legend */
+    vis.svg2.append("g")
+        .attr("class", "legendQuant")
+        .attr("transform", "translate(20,20)");;
+
+    vis.legend = d3.legendColor()
+        .labelFormat(d3.format(".2f"))
+        .title("Sentiment Color Legend")
+        .titleWidth(100)
+        .scale(vis.fill2);
+
+    vis.svg2.select(".legendQuant")
+        .call(vis.legend);
+
+
+    /* Word Cloud */
     d3.layout.cloud().size([vis.width, vis.height])
      .timeInterval(20)
      .words(filteredData)
@@ -86,7 +107,7 @@ WordCloud.prototype.updateVis = function(key) {
          })
          .attr("text-anchor", "middle")
          .attr("transform", function(d) {
-             return "translate(" + [d.x+20, d.y+20] + ")rotate(" + d.rotate + ")";
+             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
          })
          .text(function(d) { return d.key; })
          .style("font-size", function(d) { return vis.xScale(d.value) + "px"; })
