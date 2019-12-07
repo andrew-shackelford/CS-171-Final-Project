@@ -70,10 +70,10 @@
                         <p>
                             All together, these displays will stitch together a 24 hour snapshot of Reddit helping answer:
                             <ul>
-                                <li><a href="#asterVisPage">When should I post to receive a top score?</a></li>
-                                <li><a href="#asterVisPage">When's the most controversial time?</a></li>
+                                <li><a href="#asterVisPage" onClick="changeSelectBox(2)">When should I post to receive a top score?</a></li>
+                                <li><a href="#asterVisPage" onClick="changeSelectBox(1)">When is the most controversial time to post?</a></li>
                                 <li><a href="#treemapVisPage">What are the most popular subreddits?</a></li>
-                                <li><a href="#sentimentVisPage">What are the most positive/negative top subreddits?</a></li>
+                                <li><a href="#sentimentVisPage">What are the most positive or negative subreddits?</a></li>
                                 <li><a href="#wordsVisPage">What are the most common words?</a></li>
                                 <li><a href="#wordsVisPage">What are the most positive/negative common words?</a></li>
                             </ul>
@@ -423,7 +423,6 @@
                 </p>
             </div>
         </div>
-
     </div>
 
 
@@ -433,12 +432,13 @@
     <script src="js/jquery.pagepiling.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3-tip.js"></script>
+    <script src="js/d3-scale.min.js"></script>
     <script src="js/d3-scale-chromatic.js"></script>
     <script src="js/d3-color.v1.min.js"></script>
     <script src="js/d3-interpolate.v1.min.js"></script>
     <script src="js/d3.layout.cloud.js"></script>
     <!--Library for legend-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+    <script src="js/d3-legend.min.js"></script>
     <script src="js/colorbrewer.js"></script>
     <script src="js/lodash.min.js"></script>
     <script src="js/cover.js"></script>
