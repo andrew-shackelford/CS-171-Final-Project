@@ -137,7 +137,14 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("id", function(d) {
             return "asterplot-pie-" + d.data["hour"];
         })
-        .on('mouseover', function(d) {
+        .style('opacity', 0);
+
+    vis.path.transition()
+        .duration(300)
+        .delay(function(d,i){ return i * 25; })
+        .style('opacity', 1);
+
+    vis.path.on('mouseover', function(d) {
             vis.tip.style("display", "inline");
             vis.tip.html("<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
@@ -263,10 +270,23 @@ AsterPlot.prototype.changeSelectBox = function (id) {
     vis.updatePlotType();
 };
 
-AsterPlot.prototype.showTrend = function() {
+AsterPlot.prototype.showTrend = function(idx) {
     var vis = this;
 
-    vis.changeSelectBox(2);
+    if (idx == 0) {
+        vis.changeSelectBox(0);
 
-    d3.select("#asterplot-pie-9").dispatch('click');
+        d3.select("#asterplot-pie-16")
+            .attr("stroke", "orange")
+            .attr("stroke-width", "5")
+    } else if (idx == 2) {
+        vis.changeSelectBox(2);
+
+        d3.select("#asterplot-pie-9")
+            .attr("stroke", "orange")
+            .attr("stroke-width", "5")
+    }
+
+
+    // vis.updatePlotType();
 }
