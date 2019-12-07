@@ -144,7 +144,10 @@ AsterPlot.prototype.updatePlotType = function() {
         .delay(function(d,i){ return i * 25; })
         .style('opacity', 1);
 
+    vis.xOffset = 0;
+
     vis.path.on('mouseover', function(d) {
+            vis.xOffset = d3.select("#aster-container").node().getBoundingClientRect().x;
             vis.tip.style("display", "inline");
             vis.tip.html("<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
                 "<br>" + (d.data.total).toLocaleString() + " comments" +
@@ -153,7 +156,7 @@ AsterPlot.prototype.updatePlotType = function() {
         })
         .on('mousemove', function (d) {
             vis.tip
-                .style("left", (d3.event.x - 145) + "px")
+                .style("left", (d3.event.x - vis.xOffset - 67) + "px")
                 .style("top", (d3.event.y - 182) + "px");
         })
         .on('mouseout', function() { vis.tip.style("display", "none"); })
