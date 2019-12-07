@@ -27,7 +27,7 @@ Finally, the `js` folder contains the most of our work. `bootstrap.min`, `colorb
 
 ### Website
 
-- URL: [A 24 hour snapshot of Reddit](cs-171.herokuapp.com)
+- URL: [A 24 hour snapshot of Reddit](https://cs-171.herokuapp.com)
 - Website features:
   - Coordinated views
     - The orange words throughout our website coordinate the trend being discussed to the relevant visualization. These coordinated words help highlight the trend at hand. The words also help add structure to the visualizations by emphasizing the important aspects of the story being told.  
