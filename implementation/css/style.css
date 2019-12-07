@@ -96,6 +96,21 @@ p {
 	background-color: #e7e7e7;
 }
 
+#anatomy {
+	text-align: center;
+}
+
+#anatomy img {
+	height: 80vh;
+	background-repeat: no-repeat;
+	padding-top: 10px;
+}
+
+.anatomy-title {
+	font-weight: bolder;
+	font-size: 48px;
+}
+
 .vis-title {
 	font-weight: bolder;
 	font-size: 64px;
