@@ -10,15 +10,10 @@ h1 {
 p {
 	font-size: 20px;
 }
-
+/* COVER STYLING */
 .icon:hover {
 	opacity: 0.6;
 }
-
-.cover-tip {
-	font-family: 'Rubik', sans-serif;
-}
-
 #cover-title, .cover-subtext {
 	padding-left: 20px;
 }
@@ -28,6 +23,39 @@ p {
 	font-weight: bolder;
 	font-size: 72px;
 	color: white;
+}
+
+.cover-tip, .cover-tip-padding {
+	line-height: 1;
+	padding-top: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-bottom: 12px;
+	background: #c8deef;
+	color: #5296dd;
+	border-radius: 5px;
+	width: 350px;
+	font-family: 'Rubik', sans-serif;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.cover-tip:after, .cover-tip-padding:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 10px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\25BC";
+	position: absolute;
+	text-align: center;
+}
+
+/* Style northward tooltips differently */
+.cover-tip.n:after, .cover-tip-padding.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
 }
 
 .cover-subtext {
