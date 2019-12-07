@@ -23,15 +23,9 @@ AsterPlot.prototype.initVis = function() {
     vis.radius = Math.min(vis.width, vis.height) / 2 - 50;
     vis.innerRadius = 0;
 
-    vis.tip = d3.tip()
-        .attr('class', 'd3-tip-padding')
-        .offset([0, 0])
-        .html(function(d, i) {
-            return "<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
-                "<br>" + (d.data.total).toLocaleString() + " comments" +
-                "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
-                "<br>" + "Avg. score: " + d.data.score.toFixed(2);
-    });
+    vis.tip = d3.select("#asterplot").append("div")
+        .attr("class", "d3-tip-aster")
+        .style("display", "none");
 
     vis.pie = d3.pie()
         .sort(null)
@@ -50,7 +44,7 @@ AsterPlot.prototype.initVis = function() {
         .append("g")
         .attr("transform", "translate(" + vis.width / 2 + "," + vis.height / 2 + ")");
 
-    vis.svg.call(vis.tip);
+    vis.colorScale = d3.scaleSequential(d3.interpolateBlues);
 
     // aggregate all data associated with an hour in the day
     vis.byHour = [];
@@ -90,8 +84,6 @@ AsterPlot.prototype.initVis = function() {
             "total" : total,
             "controversiality" : controversiality,
             "score" : score,
-            // temporary color scheme (built-in)
-            "color" : d3.interpolateBlues(hourInt/24)
         });
     });
 
@@ -107,11 +99,17 @@ AsterPlot.prototype.updatePlotType = function() {
 
     var asterType = d3.select("#aster-type").node().value;
 
+    var extent = d3.extent(vis.byHour, function (d) {
+        return d[asterType.toString()];
+    });
+
+    vis.colorScale.domain(extent);
+
     vis.arc.outerRadius(function (d) {
         if (asterType === "controversiality") {
             return (vis.radius - vis.innerRadius) * (d.data.controversiality * 1.21) + vis.innerRadius;
         }
-        if (asterType === "comments") {
+        if (asterType === "total") {
             return (vis.radius - vis.innerRadius) * (d.data.total / 56000) + vis.innerRadius;
         }
         if (asterType === "score") {
@@ -122,6 +120,7 @@ AsterPlot.prototype.updatePlotType = function() {
     vis.svg.selectAll('.solidArc')
         .data([])
         .exit().remove();
+
     vis.svg.selectAll('.center-text')
         .text("")
         .exit().remove();
@@ -130,7 +129,7 @@ AsterPlot.prototype.updatePlotType = function() {
         .data(vis.pie(vis.byHour))
         .enter().append("path")
         .attr("fill", function(d) {
-            return d.data.color;
+                return vis.colorScale(d.data[asterType.toString()])
         })
         .attr("class", "solidArc")
         .attr("stroke", "black")
@@ -138,12 +137,24 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("id", function(d) {
             return "asterplot-pie-" + d.data["hour"];
         })
-        .on('mouseover', vis.tip.show)
-        .on('mouseout', vis.tip.hide)
+        .on('mouseover', function(d) {
+            vis.tip.style("display", "inline");
+            vis.tip.html("<span style='color:#72ffff'>" + d.data.prettyHour + "</span>" +
+                "<br>" + (d.data.total).toLocaleString() + " comments" +
+                "<br>" + "Avg. controversiality: " + d.data.controversiality.toFixed(2) +
+                "<br>" + "Avg. score: " + d.data.score.toFixed(2));
+        })
+        .on('mousemove', function (d) {
+            vis.tip
+                .style("left", (d3.event.x - 145) + "px")
+                .style("top", (d3.event.y - 182) + "px");
+        })
+        .on('mouseout', function() { vis.tip.style("display", "none"); })
         .on("click", function(d){
             vis.tableCreate(d)
         });
 
+    // do not remove code, even though var outerPath is not being used
     var outerPath = vis.svg.selectAll(".outlineArc")
         .data(vis.pie(vis.byHour))
         .enter().append("path")
@@ -151,6 +162,36 @@ AsterPlot.prototype.updatePlotType = function() {
         .attr("stroke", "black")
         .attr("class", "outlineArc")
         .attr("d", vis.outlineArc);
+
+    // appending hour markers to plot
+    vis.svg.append("text")
+        .attr("x", "0")
+        .attr("y", "-260")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 AM");
+
+    vis.svg.append("text")
+        .attr("x", "0")
+        .attr("y", "270")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("12 PM");
+
+    vis.svg.append("text")
+        .attr("x", "275")
+        .attr("y", "30")
+        .attr("y", "5")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 AM");
+
+    vis.svg.append("text")
+        .attr("x", "-275")
+        .attr("y", "5")
+        .attr("text-anchor", "middle")
+        .attr("class", "hourText")
+        .text("6 PM");
 
 };
 
@@ -160,7 +201,6 @@ AsterPlot.prototype.tableCreate = function(d){
     var tbl  = document.createElement('table');
     tbl.className = "table table-bordered";
     tbl.style.width  = '100px';
-    // tbl.style.border = '1px solid black';
 
     var tableTitle = document.createElement('h3');
     tableTitle.appendChild(document.createTextNode("Top 5 Most Active Subreddits at " + (d.data["prettyHour"])))
