@@ -1,6 +1,7 @@
-WordCloud = function(_parentElement, _data) {
+WordCloud = function(_parentElement, _data, _sentiment) {
     this.parentElement = _parentElement;
     this.data = _data;
+    this.sentiments = _sentiment;
 
     this.initVis();
 };
@@ -19,6 +20,11 @@ WordCloud.prototype.initVis = function() {
         .attr("transform", "translate(350,350)");
 
     vis.fill = d3.scaleOrdinal(d3.schemeCategory10);
+
+    vis.fill2 = d3.scaleSequential(d3.interpolateRdYlGn)
+        .domain([-5, 5]);
+
+    console.log(vis.fill2(this.sentiments['abandon']));
 
     vis.xScale = d3.scaleLinear()
         .range([30,100]);
@@ -56,7 +62,7 @@ WordCloud.prototype.updateVis = function(key) {
         cloud
             .attr("text-anchor", "middle")
             .text(function(d) { return d.key; })
-            .style("fill", function(d, i) { return vis.fill(d.key); })
+            .style("fill", function(d) {return vis.fill2(vis.sentiments[(d.key).toString()]); })
             .transition()
             .duration(750)
             .attr('font-family', 'Rubik, sans-serif')
@@ -82,7 +88,10 @@ WordCloud.prototype.updateVis = function(key) {
             })
             .text(function(d) { return d.key; })
             .style("font-size", function(d) { return vis.xScale(d.value) + "px"; })
-            .style("fill", function(d, i) { return vis.fill(d.key); })
+            .style("fill", function(d, i) {
+                console.log(d.key);
+                return vis.fill2(vis.sentiments[(d.key).toString()]);
+            })
             .style("opacity", 0)
             .transition()
             .duration(750)

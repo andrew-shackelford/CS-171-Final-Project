@@ -19,6 +19,45 @@ p {
 	font-family: 'Rubik', sans-serif;
 }
 
+.example-twitter {
+	position:relative;
+	padding:15px;
+	margin:100px 0 0.5em;
+	color:#333;
+	background:#eee;
+	/* css3 */
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+	width: 350px;
+}
+
+.example-twitter p {font-size:28px; line-height:1.25em;}
+
+/* this isn't necessary, just saves me having to edit the HTML of the demo */
+.example-twitter:before {
+	position:absolute;
+	top:-60px;
+	left:0;
+	width:155px;
+	height:36px;
+	/* reduce the damage in FF3.0 */
+	display:block;
+}
+
+/* creates the triangle */
+.example-twitter:after {
+	content:"";
+	position:absolute;
+	top:-30px;
+	left:160px;
+	border:15px solid transparent;
+	border-bottom-color:#eee;
+	/* reduce the damage in FF3.0 */
+	display:block;
+	width:0;
+}
+
 #cover-title, .cover-subtext {
 	padding-left: 20px;
 }

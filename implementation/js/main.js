@@ -24,11 +24,14 @@ d3.json("data/hourly_stats.json", function(error, jsonData) {
     }
 });
 
-d3.json("data/word_counts.json", function(error, jsonData) {
-    if (!error) {
-        wordCloud = new WordCloud("#wordcloud", jsonData);
-    }
-});
+queue()
+    .defer(d3.json, "data/word_counts.json")
+    .defer(d3.json, "data/afinn_dict.json")
+    .await(function(error, jsonData, sentimentData){
+        if (!error) {
+            wordCloud = new WordCloud("#wordcloud", jsonData, sentimentData);
+        }
+    });
 
 function toTreemap() {
     treeMap.toTreemap();
