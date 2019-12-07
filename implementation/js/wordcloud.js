@@ -1,7 +1,6 @@
-WordCloud = function(_parentElement, _data, _sentiment) {
+WordCloud = function(_parentElement, _data) {
     this.parentElement = _parentElement;
     this.data = _data;
-    this.sentiments = _sentiment;
 
     this.initVis();
 };
@@ -21,16 +20,14 @@ WordCloud.prototype.initVis = function() {
 
     vis.fill = d3.scaleOrdinal(d3.schemeCategory10);
 
-    vis.fill2 = d3.scaleSequential(d3.interpolateRdYlGn)
-        .domain([-5, 5]);
-
-    console.log(vis.fill2(this.sentiments['abandon']));
+    vis.fill2 = d3.scaleQuantize()
+        .range(['#E21F20', "#D27D21", '#E8D65D', '#8CE079', '#41BE24']);
 
     vis.xScale = d3.scaleLinear()
-        .range([30,100]);
+     .range([30,100]);
 
     vis.updateVis("AmItheAsshole");
-}
+    }
 
 
 WordCloud.prototype.updateVis = function(key) {
@@ -38,65 +35,69 @@ WordCloud.prototype.updateVis = function(key) {
 
     var filteredData = this.data[key];
 
+    vis.fill2.domain(d3.extent(filteredData, function(d){
+        return d.sentiment;
+    }));
+
     vis.xScale.domain([0, d3.max(filteredData, function(d) {
-        return d.value;
+     return d.value;
     })]);
 
     d3.layout.cloud().size([vis.width, vis.height])
-        .timeInterval(20)
-        .words(filteredData)
-        .padding(3)
-        .font('Rubik')
-        .fontSize(function(d) {return vis.xScale(+d.value); })
-        .text(function(d) { return d.key; })
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
-        .on("end", draw)
-        .start();
+     .timeInterval(20)
+     .words(filteredData)
+     .padding(3)
+     .font('Rubik')
+     .fontSize(function(d) {return vis.xScale(+d.value); })
+     .text(function(d) { return d.key; })
+     .rotate(function() { return ~~(Math.random() * 2) * 90; })
+     .on("end", draw)
+     .start();
 
     function draw(words) {
-        var cloud = vis.svg.selectAll("text")
-            .data(words, function(d) {
-                return d.key;
-            });
+     var cloud = vis.svg.selectAll("text")
+         .data(words, function(d) {
+             return d.key;
+         });
 
-        cloud
-            .attr("text-anchor", "middle")
-            .text(function(d) { return d.key; })
-            .style("fill", function(d) {return vis.fill2(vis.sentiments[(d.key).toString()]); })
-            .transition()
-            .duration(750)
-            .attr('font-family', 'Rubik, sans-serif')
-            .style("font-size", function(d) { return vis.xScale(d.value)-10 + "px";})
-            .attr("transform", function(d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            });
+     cloud
+         .attr("text-anchor", "middle")
+         .text(function(d) { return d.key; })
+         .style("fill", function(d, i) { return vis.fill2(d.sentiment); })
+         .transition()
+         .duration(750)
+         .attr('font-family', 'Rubik, sans-serif')
+         .style("font-size", function(d) { return vis.xScale(d.value)-10 + "px";})
+         .style("text-shadow", "-.5px -.5px 0 #000, .5px -.5px 0 #000, -.5px .5px 0 #000, .5px .5px 0 #000")
+         .attr("transform", function(d) {
+             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+         });
 
-        cloud.exit()
-            .transition()
-            .duration(750)
-            .style("opacity", 0)
-            .remove();
+     cloud.exit()
+         .transition()
+         .duration(750)
+         .style("opacity", 0)
+         .remove();
 
-        cloud.enter().append("text")
-            .on("mouseover", function(d) {
-                document.getElementById("word-info").innerHTML =
-                    "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
-            })
-            .attr("text-anchor", "middle")
-            .attr("transform", function(d) {
-                return "translate(" + [d.x+20, d.y+20] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.key; })
-            .style("font-size", function(d) { return vis.xScale(d.value) + "px"; })
-            .style("fill", function(d, i) {
-                console.log(d.key);
-                return vis.fill2(vis.sentiments[(d.key).toString()]);
-            })
-            .style("opacity", 0)
-            .transition()
-            .duration(750)
-            .attr('font-family', 'Rubik, sans-serif')
-            .style("opacity", 1);
+     cloud.enter().append("text")
+         .on("mouseover", function(d) {
+             document.getElementById("word-info").innerHTML =
+                 "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
+         })
+         .attr("text-anchor", "middle")
+         .attr("transform", function(d) {
+             return "translate(" + [d.x+20, d.y+20] + ")rotate(" + d.rotate + ")";
+         })
+         .text(function(d) { return d.key; })
+         .style("font-size", function(d) { return vis.xScale(d.value) + "px"; })
+         .style("paint-order", "stroke")
+         .style("text-shadow", "-.5px -.5px 0 #000, .5px -.5px 0 #000, -.5px .5px 0 #000, .5px .5px 0 #000")
+         .style("fill", function(d, i) { return vis.fill2(d.sentiment); })
+         .style("opacity", 0)
+         .transition()
+         .duration(750)
+         .attr('font-family', 'Rubik, sans-serif')
+         .style("opacity", 1);
     }
 
     d3.layout.cloud().stop();

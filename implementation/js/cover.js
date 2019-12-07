@@ -10,7 +10,7 @@ var svg = d3.select("#cover").append("svg")
 
 
 var tip = d3.tip()
-    .attr("class", "d3-tip")
+    .attr("class", "cover-tip")
     .offset([0, 0])
     .html(function(d) {
         return d.comment;
