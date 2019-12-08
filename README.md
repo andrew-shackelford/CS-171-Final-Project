@@ -23,7 +23,7 @@ The `data` folder contains the filtered data that we used for our visualizations
 Finally, the `js` folder contains the most of our work. `bootstrap.min`, `colorbrewer`, `d3-color.v1.min`, `d3-interpolate.v1.min`, `d3-scale-chromatic`, `d3.layout.cloud`, `d3.min`, `jquery.min`, `jquery.pagepiling.min`, `lodash.min`, and `popper.min` are all files from libraries. We also used the `d3-tip` file provided in class for tooltips. `asterplot.js` includes the code to create the aster plot visualization. `cover.js` includes the code to create the front page of our website. `sentiment.js` includes the code to create the bubble chart, sentiment visualization. `treemap.js` includes the code to create the treemap visualization. `wordcloud.js` includes the code to create the word cloud visualization. Finally, `main.js` initializes each visualization.
 
 ### Screencast
-- URL:
+- URL: https://youtu.be/DZ3_P5iStzw
 
 ### Website
 
