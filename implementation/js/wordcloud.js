@@ -8,7 +8,7 @@ WordCloud = function(_parentElement, _data) {
 WordCloud.prototype.initVis = function() {
     var vis = this;
 
-    vis.margin = {top: 0, right: 0, bottom: 10, left: 0};
+    vis.margin = {top: 0, right: 125, bottom: 10, left: 0};
     vis.width = 800 - vis.margin.left - vis.margin.right;
     vis.height = 700 - vis.margin.top - vis.margin.bottom;
 

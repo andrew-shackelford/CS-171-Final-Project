@@ -1,7 +1,7 @@
 /* custom css rules */
 
 body {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Lato', 'Raleway', sans-serif;
 }
 
 h1 {
@@ -10,6 +10,7 @@ h1 {
 p {
 	font-size: 20px;
 }
+
 /* COVER STYLING */
 .icon:hover {
 	opacity: 0.6;
@@ -422,5 +423,4 @@ td {
 .img-div {
 	text-align: center;
 	font-family: 'Rubik', sans-serif;
-
 }
