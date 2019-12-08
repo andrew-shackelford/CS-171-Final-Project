@@ -424,3 +424,8 @@ td {
 	text-align: center;
 	font-family: 'Rubik', sans-serif;
 }
+
+.img-btn {
+	margin-left: 50px;
+	width: 20%;
+}
