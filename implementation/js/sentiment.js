@@ -12,13 +12,17 @@ SentimentBubbleCloud.prototype.initVis = function(){
 
     var playButton = d3.select("#play-button");
 
+    vis.isPlaying = false;
+
     playButton
         .on("click", function() {
             var button = d3.select(this);
-            if (button.text() == "Pause") {
+            if (vis.isPlaying) {
+                vis.isPlaying = false;
                 clearInterval(vis.intervalId);
                 button.text("Play");
             } else {
+                vis.isPlaying = true;
                 vis.step();
                 vis.intervalId = setInterval(function(){vis.step();}, 600);
                 button.text("Pause");
@@ -227,10 +231,10 @@ SentimentBubbleCloud.prototype.update = function(value) {
 SentimentBubbleCloud.prototype.showTrend = function() {
     var vis = this;
     vis.update(8);
-    setTimeout(function() { vis.update(9); }, 750);
-    setTimeout(function() { vis.update(10); }, 1500);
-    setTimeout(function() { vis.update(11); }, 2250);
-    setTimeout(function() { vis.update(12); }, 3000);
+    if (!vis.isPlaying) {
+        d3.select("#play-button").dispatch('click');
+    }
+    setTimeout(function() { d3.select("#play-button").dispatch('click'); }, 2500);
 }
 
 

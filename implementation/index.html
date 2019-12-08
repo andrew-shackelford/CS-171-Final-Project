@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.pagepiling.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -37,13 +39,10 @@
                         Reddit calls itself <i>The front page of the Internet:</i> the website contains a vast number of forums called subreddits, each of which forms its own community.
                     </p>
                     <p>
-                        Topics range from today’s news to <a href="https://www.reddit.com/r/CatsStandingUp/">cats standing up.</a> Some subreddits are more question-and-answer based, whereas others serve as platforms via which members share web content with others.
-                    </p>
-                    <p>
                         Any Reddit user can create a subreddit as long as it follows Reddit’s content <a href="https://www.redditinc.com/policies/content-policy">policy.</a>
                     </p>
                     <p>
-                        To interact with the social aggregation site, Reddit users can <b>post</b>, <b>comment</b>, <b>upvote</b>, or <b>downvote</b>. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.  Users can also give awards to fellow users, which cost “Reddit coins,” which have to be purchased with real currency.
+                        To interact with the social aggregation site, Reddit users can <b>post</b>, <b>comment</b>, <b>upvote</b>, or <b>downvote</b>. Each account has “karma” associated with it which affects a user’s reputation on Reddit’s forums.
                     </p>
                 </div>
                 <div class="col-md-6">
@@ -57,7 +56,7 @@
                 <h1 class="intro-title">A 24 hour snapshot</h1>
                 <div class="row" id="intro-row-2">
                     <div class="col-md-5">
-                        <img src="https://image.flaticon.com/icons/png/512/21/21737.png" alt="24 hour timer" id="timer">
+                        <img src="img/clock.svg" alt="24 hour timer" id="timer">
                     </div>
                     <div class="col-md-7">
                         <p>
@@ -162,6 +161,7 @@
                         <option value="controversiality">Average Controversiality</option>
                         <option value="score">Average Score</option>
                     </select>
+                    <i>*Click on a leaf to view more details about that time period</i>
                 </div>
     <!--            <div id="asterplot"></div>-->
                 <div class="row">
@@ -371,11 +371,13 @@
                     </div>
                 </form>
                 <div class = "row">
-                    <div class = "col-3" style = "padding-top: 150px; padding-bottom: 30px;">
+                    <div class = "col-3" style = "padding-top: 100px; padding-bottom: 30px;">
                         <p>By looking at a snapshot of words from each subreddit,
                             the general feeling of the community can be perceived.
                             The colors encode the average sentiment of all comments
-                            in the subreddit that contain the word.
+                            in the subreddit that contain the word. Note that "deleted"
+                            denotes a comment that was deleted by the user and "removed"
+                            denotes a comment that was removed by the moderators of the subreddit.
                         </p>
                         <div>Hover over a word to learn more about its use.</div>
                         <p id = "word-info" style = "color: #5296dd"></p>
