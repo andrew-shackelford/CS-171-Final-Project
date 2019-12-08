@@ -75,6 +75,10 @@ WordCloud.prototype.updateVis = function(key) {
      .on("end", draw)
      .start();
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     function draw(words) {
      var cloud = vis.svg.selectAll("text")
          .data(words, function(d) {
@@ -87,7 +91,7 @@ WordCloud.prototype.updateVis = function(key) {
          .style("fill", function(d, i) { return vis.fill2(d.sentiment); })
          .transition()
          .duration(750)
-         .attr('font-family', 'Rubik, sans-serif')
+         .attr('font-family', 'Raleway, sans-serif')
          .style("font-size", function(d) { return vis.xScale(d.value)-10 + "px";})
          .style("text-shadow", "-.5px -.5px 0 #000, .5px -.5px 0 #000, -.5px .5px 0 #000, .5px .5px 0 #000")
          .attr("transform", function(d) {
@@ -103,7 +107,7 @@ WordCloud.prototype.updateVis = function(key) {
      cloud.enter().append("text")
          .on("mouseover", function(d) {
              document.getElementById("word-info").innerHTML =
-                 "<b> \"" + d.key + "\" </b>" + " was mentioned " + d.value + " times."
+                 "<b> \"" + d.key + "\" </b>" + " was mentioned " + numberWithCommas(d.value) + " times."
          })
          .attr("text-anchor", "middle")
          .attr("transform", function(d) {
@@ -117,7 +121,7 @@ WordCloud.prototype.updateVis = function(key) {
          .style("opacity", 0)
          .transition()
          .duration(750)
-         .attr('font-family', 'Rubik, sans-serif')
+         .attr('font-family', 'Raleway, sans-serif')
          .style("opacity", 1);
     }
 
